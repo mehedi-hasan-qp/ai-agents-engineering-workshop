@@ -79,6 +79,10 @@ pnpm --filter 03-agent-loop start
 
 ## Slides
 
+Live: https://salauddin-sifat-qp.github.io/ai-agents-engineering-workshop/slides/
+
+Or run locally:
+
 ```bash
 pnpm slides
 ```
