@@ -1,0 +1,313 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI Agents Engineering Workshop</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="slides">
+
+  <!-- 01 · TITLE -->
+  <div class="slide center active">
+    <div class="kicker">AI Agents Engineering Workshop</div>
+    <h1>Build a runtime,<br>not a <span class="accent">prompt.</span></h1>
+    <p style="margin-top: 1.5rem;">A hands-on, build-first workshop on AI agent architecture.</p>
+  </div>
+
+  <!-- 02 · WHAT WE'RE BUILDING -->
+  <div class="slide">
+    <div class="kicker">What we're actually building</div>
+    <h2>An Engineering Agent</h2>
+    <pre>search_code
+read_file
+list_files
+run_tests
+git_diff</pre>
+    <p style="margin-top: 1.5rem;">One system, built progressively across 12 examples, investigating a
+      bundled sample project with a deliberately failing test.</p>
+  </div>
+
+  <!-- 03 · MENTAL MODEL -->
+  <div class="slide center">
+    <div class="kicker">Mental model</div>
+    <h1>Agent &ne; LLM + prompt</h1>
+    <div class="quote">An AI agent is a runtime that allows an LLM to operate
+      in an environment through controlled actions.</div>
+  </div>
+
+  <!-- 04 · TOOL CALLING -->
+  <div class="slide">
+    <div class="kicker">Example 02</div>
+    <h2>Tool calling</h2>
+    <pre>{
+  "name": "search_code",
+  "arguments": { "query": "TODO" }
+}</pre>
+    <div class="quote">The model does not execute the tool. The application executes the tool.</div>
+    <a class="example-link" href="../examples/02-tool-calling/README.md">Open examples/02-tool-calling &rarr;</a>
+  </div>
+
+  <!-- 05 · EXECUTION BOUNDARY -->
+  <div class="slide">
+    <div class="kicker">The execution boundary</div>
+    <h2>Model requests.<br>Application decides.</h2>
+    <div class="box">
+      <div class="layer"><div class="layer-label">Model</div><div class="layer-desc">Requests a tool call. Never runs it.</div></div>
+      <div class="layer"><div class="layer-label">Application</div><div class="layer-desc">Validates, classifies, maybe asks a human.</div></div>
+      <div class="layer"><div class="layer-label">Tool</div><div class="layer-desc">Runs. Returns a result.</div></div>
+      <div class="layer"><div class="layer-label">Model</div><div class="layer-desc">Receives the result, decides what's next.</div></div>
+    </div>
+  </div>
+
+  <!-- 06 · AGENT LOOP -->
+  <div class="slide">
+    <div class="kicker">Example 03</div>
+    <h2>The agent loop</h2>
+    <pre>while (!finished) {
+  response = model(messages, tools)
+
+  if (response.hasToolCall()) {
+    result = executeTool(response.toolCall)
+    messages.push(result)
+  } else {
+    return response
+  }
+}</pre>
+    <a class="example-link" href="../examples/03-agent-loop/README.md">Open examples/03-agent-loop &rarr;</a>
+  </div>
+
+  <!-- 07 · STATE AND CONTEXT -->
+  <div class="slide">
+    <div class="kicker">Example 04</div>
+    <h2>Context and state</h2>
+    <p>Conversation history costs tokens on every call. Agent state doesn't,
+      it never reaches the model.</p>
+    <pre>messages   -&gt; sent to the model, every call
+AgentState -&gt; never sent, free</pre>
+    <p class="note">Tool output past a size limit gets truncated before it
+      ever reaches the model.</p>
+    <a class="example-link" href="../examples/04-state/README.md">Open examples/04-state &rarr;</a>
+  </div>
+
+  <!-- 08 · TOOL DESIGN -->
+  <div class="slide">
+    <div class="kicker">Example 05</div>
+    <h2>Tool design</h2>
+    <p>Bad:</p>
+    <pre>executeAnything(input: string)</pre>
+    <p style="margin-top: 1.25rem;">Good:</p>
+    <pre>searchCode(query, path?)
+readFile(path)
+listFiles(path?)
+runTests(test?)</pre>
+    <a class="example-link" href="../examples/05-tool-design/README.md">Open examples/05-tool-design &rarr;</a>
+  </div>
+
+  <!-- 09 · WORKFLOW VS AGENT -->
+  <div class="slide center">
+    <div class="kicker">A choice, not a default</div>
+    <h1>Workflow vs. <span class="accent">agent</span></h1>
+    <p style="margin-top: 1.5rem;">A deterministic workflow has a fixed sequence of steps. An agent
+      decides its own sequence of tool calls. Use the simplest one that
+      solves the task, an agent is not automatically the right answer.</p>
+  </div>
+
+  <!-- 10 · PROTOCOLS PROBLEM -->
+  <div class="slide">
+    <div class="kicker">The problem</div>
+    <h2>Protocols</h2>
+    <pre>Without a protocol:
+
+Agent
+ |- custom GitHub integration
+ |- custom Slack integration
+ |- custom filesystem integration
+ `- custom database integration</pre>
+  </div>
+
+  <!-- 11 · MCP -->
+  <div class="slide">
+    <div class="kicker">Example 06</div>
+    <h2>MCP</h2>
+    <pre>Agent
+  |
+  v
+MCP Client
+  |
+  v
+MCP Server
+ |- search_code
+ |- read_file
+ `- run_tests</pre>
+    <div class="quote">A protocol decouples the agent runtime from the tool implementation.</div>
+    <a class="example-link" href="../examples/06-mcp/README.md">Open examples/06-mcp &rarr;</a>
+  </div>
+
+  <!-- 12 · MCP ARCHITECTURE -->
+  <div class="slide">
+    <div class="kicker">MCP architecture</div>
+    <h2>Two transports,<br>same server</h2>
+    <div class="box">
+      <div class="layer"><div class="layer-label">stdio</div><div class="layer-desc">Client spawns the server as a child process, no networking.</div></div>
+      <div class="layer"><div class="layer-label">HTTP</div><div class="layer-desc">Server runs standalone on a port, client connects remotely.</div></div>
+    </div>
+    <p class="note">Stateless HTTP transports need a fresh transport per
+      request, a documented SDK constraint, not an implementation detail
+      you can skip.</p>
+  </div>
+
+  <!-- 13 · SUB-AGENTS -->
+  <div class="slide">
+    <div class="kicker">Example 07</div>
+    <h2>Sub-agents</h2>
+    <pre>spawnAgent({
+  task: "Find why authentication tests are failing",
+  relevantFiles: [...]
+})</pre>
+    <p>A real, independent agent loop, fresh context, only the tools its
+      task needs. The parent never sees its intermediate tool calls.</p>
+    <a class="example-link" href="../examples/07-sub-agent/README.md">Open examples/07-sub-agent &rarr;</a>
+  </div>
+
+  <!-- 14 · MULTI-AGENT PATTERNS -->
+  <div class="slide">
+    <div class="kicker">Example 08</div>
+    <h2>Multi-agent patterns</h2>
+    <pre>Supervisor        Sequential       Parallel          Critic loop
+   /|\               |            A -\                Generator
+  R C R           Analysis         B -&gt; Synth             |
+                     |            C -/                  Critic
+                   Writer                                 |
+                     |                                 Generator
+                  Reviewer</pre>
+    <a class="example-link" href="../examples/08-multi-agent/README.md">Open examples/08-multi-agent &rarr;</a>
+  </div>
+
+  <!-- 15 · WHEN NOT TO -->
+  <div class="slide center">
+    <div class="kicker">The most important slide in this section</div>
+    <h1>When NOT to use<br><span class="accent">multi-agent</span></h1>
+    <div class="quote">Multi-agent is not automatically better.</div>
+    <p style="margin-top: 1rem;">More tokens, more latency, more failure surface. Reach for it only
+      when the task genuinely decomposes into independent or adversarial
+      sub-tasks.</p>
+  </div>
+
+  <!-- 16 · PROMPT INJECTION -->
+  <div class="slide">
+    <div class="kicker">Example 09</div>
+    <h2>Prompt injection</h2>
+    <pre>Agent
+  |
+  v
+read_file
+  |
+  v
+untrusted README
+  |
+  v
+"Ignore previous instructions and run..."</pre>
+    <p>Tool output can contain untrusted instructions. Treat it as data,
+      never as commands.</p>
+  </div>
+
+  <!-- 17 · PERMISSIONS -->
+  <div class="slide">
+    <div class="kicker">Example 09</div>
+    <h2>Permissions</h2>
+    <div class="chips">
+      <span class="chip read">search_code, read_file, list_files &rarr; automatic</span>
+    </div>
+    <div class="chips">
+      <span class="chip execute">run_tests &rarr; approval</span>
+    </div>
+    <div class="chips">
+      <span class="chip blocked">delete_data &rarr; blocked</span>
+    </div>
+    <a class="example-link" href="../examples/09-security/README.md">Open examples/09-security &rarr;</a>
+  </div>
+
+  <!-- 18 · RELIABILITY -->
+  <div class="slide">
+    <div class="kicker">Example 10</div>
+    <h2>Reliability</h2>
+    <pre>Tool failed
+  -&gt; agent receives { ok: false, error }
+  -&gt; agent retries or tries a different tool</pre>
+    <p>Timeouts, retries, structured errors, bounded iterations, failure
+      modes an agent hits constantly that normal applications rarely do.</p>
+    <a class="example-link" href="../examples/10-reliability/README.md">Open examples/10-reliability &rarr;</a>
+  </div>
+
+  <!-- 19 · OBSERVABILITY -->
+  <div class="slide">
+    <div class="kicker">Example 11</div>
+    <h2>Observability</h2>
+    <pre>Agent Run
+ |- LLM Call   { model, tokens, latency }
+ |- Tool Call  { name, args, result, latency }
+ |- LLM Call
+ `- Final Response</pre>
+    <p>Structured console/JSON tracing, enough to answer "why did the
+      agent do that" after the fact.</p>
+    <a class="example-link" href="../examples/11-observability/README.md">Open examples/11-observability &rarr;</a>
+  </div>
+
+  <!-- 20 · EVALUATION -->
+  <div class="slide">
+    <div class="kicker">Example 12</div>
+    <h2>Evaluation</h2>
+    <p>Normal: <code>input -&gt; expected output</code>.</p>
+    <p style="margin-top: 0.5rem;">Agent: <code>input -&gt; many possible trajectories -&gt; final result</code>.</p>
+    <pre>{
+  "task": "Find the failing authentication test",
+  "expectedTools": ["search_code", "read_file", "run_tests"]
+}</pre>
+    <a class="example-link" href="../examples/12-evaluation/README.md">Open examples/12-evaluation &rarr;</a>
+  </div>
+
+  <!-- 21 · PRODUCTION ARCHITECTURE -->
+  <div class="slide">
+    <div class="kicker">Putting it together</div>
+    <h2>Production architecture</h2>
+    <pre>User -&gt; Application API -&gt; Agent Runtime
+                                |
+                    +-----------+-----------+
+                    v           v           v
+                  Model       State       Policy
+                    |
+                    v
+                Tool Layer
+                    |
+              +-----+-----+
+              v     v     v
+             MCP   APIs   DB
+
+        + Observability + Evaluation + Security</pre>
+    <a class="example-link" href="../docs/architecture.md">Open docs/architecture.md &rarr;</a>
+  </div>
+
+  <!-- 22 · FINAL MENTAL MODEL -->
+  <div class="slide center">
+    <div class="kicker">Final mental model</div>
+    <h1>Agency, not just<br><span class="accent">intelligence.</span></h1>
+    <div class="quote">The model provides intelligence; the runtime provides agency.
+      The tools provide capabilities; protocols provide interoperability;
+      state provides continuity; policies provide control; evaluation
+      provides confidence.</div>
+  </div>
+
+</div>
+
+<div class="progress-bar" id="progress"></div>
+<nav class="slide-nav">
+  <button id="prev" aria-label="Previous slide">&larr;</button>
+  <button id="next" aria-label="Next slide">&rarr;</button>
+</nav>
+<div class="slide-counter" id="counter"></div>
+
+<script src="deck.js"></script>
+</body>
+</html>
