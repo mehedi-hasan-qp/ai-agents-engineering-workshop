@@ -4,7 +4,11 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "tsx src/index.ts",
+    "start": "tsx src/supervisor.ts",
+    "supervisor": "tsx src/supervisor.ts",
+    "sequential": "tsx src/sequential.ts",
+    "parallel": "tsx src/parallel.ts",
+    "critic": "tsx src/critic.ts",
     "pretest:fixture": "cd src/fixture/pokedex-api && npm install",
     "test:fixture": "cd src/fixture/pokedex-api && npm test"
   },

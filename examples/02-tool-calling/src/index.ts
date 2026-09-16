@@ -8,7 +8,10 @@ const config = loadConfig();
 const provider = new OpenAICompatibleProvider(config);
 
 const messages: ChatMessage[] = [
-  { role: "system", content: "You are an engineering agent. Use the tools you're given." },
+  {
+    role: "system",
+    content: "You are an engineering agent. Use the tools you're given.",
+  },
   {
     role: "user",
     content: 'Search the codebase for "trim" and tell me what you find.',

@@ -69,6 +69,23 @@ shared `src/`, so any example can be read and run in isolation.
 pnpm --filter 01-basic-llm start
 ```
 
+Or use the numbered shortcut from the repo root, which does the same thing:
+
+```bash
+pnpm 01
+```
+
+Examples with more than one entry point expose extra shortcuts:
+
+```bash
+pnpm 06         # MCP over stdio
+pnpm 06:http    # MCP over HTTP
+pnpm 08         # multi-agent: supervisor pattern
+pnpm 08:sequential
+pnpm 08:parallel
+pnpm 08:critic
+```
+
 Most examples run against a bundled Pokédex API fixture with a deliberately
 failing test. Confirm it fails as expected before running the agent:
 

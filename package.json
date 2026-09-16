@@ -4,7 +4,22 @@
   "version": "1.0.0",
   "description": "Hands-on workshop: building an AI agent from a single LLM call up to multi-agent systems.",
   "scripts": {
-    "dev": "pnpm --filter 01-basic-llm start"
+    "01": "pnpm --filter 01-basic-llm start",
+    "02": "pnpm --filter 02-tool-calling start",
+    "03": "pnpm --filter 03-agent-loop start",
+    "04": "pnpm --filter 04-state start",
+    "05": "pnpm --filter 05-tool-design start",
+    "06": "pnpm --filter 06-mcp start:stdio",
+    "06:http": "pnpm --filter 06-mcp start:http",
+    "07": "pnpm --filter 07-sub-agent start",
+    "08": "pnpm --filter 08-multi-agent supervisor",
+    "08:sequential": "pnpm --filter 08-multi-agent sequential",
+    "08:parallel": "pnpm --filter 08-multi-agent parallel",
+    "08:critic": "pnpm --filter 08-multi-agent critic",
+    "09": "pnpm --filter 09-security start",
+    "10": "pnpm --filter 10-reliability start",
+    "11": "pnpm --filter 11-observability start",
+    "12": "pnpm --filter 12-evaluation start"
   },
   "engines": {
     "node": ">=20"

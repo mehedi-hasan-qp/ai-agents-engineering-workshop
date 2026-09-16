@@ -12,7 +12,10 @@ const provider = new OpenAICompatibleProvider(config);
 // instruction. Every example after this one carries a system prompt.
 const response = await provider.chat({
   messages: [
-    { role: "system", content: "Answer in exactly one plain sentence, no caveats." },
+    {
+      role: "system",
+      content: "Answer in exactly one plain sentence, no caveats.",
+    },
     { role: "user", content: "What is an AI agent?" },
   ],
 });
