@@ -29,13 +29,7 @@ LLM_MODEL=
 
 Model must support tool/function calling.
 
-| Provider | Cost | Base URL | Notes |
-| --- | --- | --- | --- |
-| **[Groq](https://console.groq.com/keys)** (recommended) | Free | `https://api.groq.com/openai/v1` | Fast. Use `openai/gpt-oss-20b`. |
-| [OpenRouter](https://openrouter.ai/keys) | Free tier | `https://openrouter.ai/api/v1` | Tool-call support varies by model. |
-| [Google Gemini](https://aistudio.google.com/apikey) | Free tier | `https://generativelanguage.googleapis.com/v1beta/openai` | Use full versioned model name, e.g. `gemini-2.0-flash-lite`. Slower. |
-| [OpenAI](https://platform.openai.com/api-keys) | Paid | `https://api.openai.com/v1` | Free trial credits for new accounts. |
-| [Ollama](https://ollama.com) (local) | Free | `http://localhost:11434/v1` | No `LLM_API_KEY` needed. Pick a tool-calling model. |
+Default: **[Google Gemini](https://aistudio.google.com/apikey)** — free tier, `https://generativelanguage.googleapis.com/v1beta/openai`, `gemini-2.0-flash-lite`. Already set in `.env.example`.
 
 Missing/incomplete `.env` fails fast with a clear error.
 
