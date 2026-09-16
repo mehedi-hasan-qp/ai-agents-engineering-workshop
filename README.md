@@ -79,15 +79,12 @@ pnpm --filter 03-agent-loop start
 
 ## Slides
 
-Live: https://salauddin-sifat-qp.github.io/ai-agents-engineering-workshop/slides/
+Slides, the production architecture doc, and the facilitator's speaker
+script live on the [`gh-pages` branch](https://github.com/salauddin-sifat-qp/ai-agents-engineering-workshop/tree/gh-pages), not here:
 
-Or run locally:
-
-```bash
-pnpm slides
-```
-
-Opens the deck at `http://localhost:4000`. Arrow keys / space to navigate.
+- Live deck: <https://salauddin-sifat-qp.github.io/ai-agents-engineering-workshop/>
+- Architecture: [`docs/architecture.md`](https://github.com/salauddin-sifat-qp/ai-agents-engineering-workshop/blob/gh-pages/docs/architecture.md)
+- Speaker script: [`script.md`](https://github.com/salauddin-sifat-qp/ai-agents-engineering-workshop/blob/gh-pages/script.md)
 
 ## Workshop progression
 
@@ -106,8 +103,6 @@ Opens the deck at `http://localhost:4000`. Arrow keys / space to navigate.
 | 11 | `observability` | Structured JSON tracing of every LLM and tool call |
 | 12 | `evaluation` | Rule-based scoring of an agent's tool-call trajectory |
 
-## Architecture
+## Glossary
 
-See [`docs/architecture.md`](docs/architecture.md) for the production
-architecture discussion, and [`CONTEXT.md`](CONTEXT.md) for the project's
-glossary of terms.
+See [`CONTEXT.md`](CONTEXT.md) for the project's glossary of terms.
