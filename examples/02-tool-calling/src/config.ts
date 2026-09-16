@@ -1,4 +1,11 @@
-import "dotenv/config";
+import { config } from "dotenv";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
+
+// Always load the monorepo-root .env, regardless of which example
+// directory the script runs from.
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+config({ path: path.resolve(__dirname, "../../../.env") });
 
 export interface LLMConfig {
   apiKey: string;
