@@ -57,9 +57,7 @@ export class OpenAICompatibleProvider implements LLMProvider {
     });
 
     if (!response.ok) {
-      throw new Error(
-        `LLM request failed: ${await formatApiError(response)}`,
-      );
+      throw new Error(`LLM request failed: ${await formatApiError(response)}`);
     }
 
     const data = await response.json();
