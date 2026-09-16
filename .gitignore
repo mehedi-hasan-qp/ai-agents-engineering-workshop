@@ -3,3 +3,4 @@ dist/
 .env
 *.log
 .vitest/
+script.md
