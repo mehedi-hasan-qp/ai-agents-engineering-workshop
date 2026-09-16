@@ -5,7 +5,7 @@ A hands-on workshop repo that teaches AI agent architecture by progressively bui
 ## Language
 
 **Example**:
-A standalone, self-contained folder under `examples/NN-name/` containing its own runnable copy of the code needed for that workshop stage. Examples do not import from a shared `src/`; each one duplicates whatever prior-stage code it needs so it stays independently runnable.
+A folder under `examples/NN-name/` containing the code for one workshop stage. Each example's agent loop and tools are its own copy, duplicated on purpose so the logic that changes stage to stage stays independently readable. The provider/config layer is the one exception: it's shared via the `llm-provider` workspace package (see ADR-0003) since it's identical across every example and has no pedagogical reason to be duplicated.
 _Avoid_: stage, step, module (when referring to a workshop folder)
 
 **Fixture Repo**:
