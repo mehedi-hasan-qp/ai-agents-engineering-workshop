@@ -1,5 +1,5 @@
-import { loadConfig } from "./config.ts";
-import { OpenAICompatibleProvider, type ChatMessage } from "./provider.ts";
+import { loadConfig } from "llm-provider/config";
+import { OpenAICompatibleProvider, type ChatMessage } from "llm-provider/provider";
 import { searchCode, searchCodeSchema } from "./tools.ts";
 
 // The model can request a tool call, but it never runs the tool itself.

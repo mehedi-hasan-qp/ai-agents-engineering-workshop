@@ -1,4 +1,4 @@
-import type { ToolSchema } from "./provider.ts";
+import type { ToolSchema } from "llm-provider/provider";
 import { searchCode } from "./tools.ts";
 
 export const flakySearchCodeSchema: ToolSchema = {

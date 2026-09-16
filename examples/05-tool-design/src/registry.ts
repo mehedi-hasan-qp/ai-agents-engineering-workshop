@@ -1,4 +1,4 @@
-import type { ToolSchema } from "./provider.ts";
+import type { ToolSchema } from "llm-provider/provider";
 
 // Every tool the runtime knows about is classified by what it's allowed to
 // do. Example 09 (Security) uses this classification to decide what runs

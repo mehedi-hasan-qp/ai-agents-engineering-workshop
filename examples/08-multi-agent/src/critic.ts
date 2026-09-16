@@ -1,6 +1,6 @@
 import { runAgent } from "./agent.ts";
-import { loadConfig } from "./config.ts";
-import { OpenAICompatibleProvider } from "./provider.ts";
+import { loadConfig } from "llm-provider/config";
+import { OpenAICompatibleProvider } from "llm-provider/provider";
 
 // Generator proposes a fix, critic reviews it, generator revises - repeated
 // for a fixed number of rounds rather than until some open-ended "good

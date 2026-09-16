@@ -1,7 +1,7 @@
 import { readFile } from "node:fs/promises";
-import { loadConfig } from "./config.ts";
+import { loadConfig } from "llm-provider/config";
 import { runAgent, type Tool } from "./evalAgent.ts";
-import { OpenAICompatibleProvider } from "./provider.ts";
+import { OpenAICompatibleProvider } from "llm-provider/provider";
 import { score, type EvalTask } from "./score.ts";
 import {
   listFilesSchema,

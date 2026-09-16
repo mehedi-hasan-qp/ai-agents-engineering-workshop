@@ -2,7 +2,7 @@ import { execFile } from "node:child_process";
 import { readFile, readdir } from "node:fs/promises";
 import path from "node:path";
 import { promisify } from "node:util";
-import type { ToolSchema } from "./provider.ts";
+import type { ToolSchema } from "llm-provider/provider";
 
 const execFileAsync = promisify(execFile);
 const FIXTURE_ROOT = path.resolve(import.meta.dirname, "fixture/pokedex-api");

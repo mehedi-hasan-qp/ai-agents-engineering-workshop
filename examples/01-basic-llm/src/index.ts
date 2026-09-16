@@ -1,4 +1,4 @@
-import { loadConfig } from "./config.ts";
+import { loadConfig } from "llm-provider/config";
 import { OpenAICompatibleProvider } from "./provider.ts";
 
 // The baseline, before any agent behavior exists: a user message goes in,

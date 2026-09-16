@@ -13,7 +13,7 @@
     "test:fixture": "cd src/fixture/pokedex-api && npm test"
   },
   "dependencies": {
-    "dotenv": "^16.4.5"
+    "llm-provider": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",

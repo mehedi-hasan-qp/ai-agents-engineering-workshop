@@ -1,5 +1,5 @@
-import type { LLMConfig } from "./config.ts";
-import type { ChatMessage, LLMProvider, ToolSchema } from "./provider.ts";
+import type { LLMConfig } from "llm-provider/config";
+import type { ChatMessage, LLMProvider, ToolSchema } from "llm-provider/provider";
 import { timed, trace } from "./tracer.ts";
 
 export interface Tool {

@@ -1,6 +1,6 @@
-import { loadConfig } from "./config.ts";
+import { loadConfig } from "llm-provider/config";
 import { flakySearchCode, flakySearchCodeSchema } from "./flakyTools.ts";
-import { OpenAICompatibleProvider } from "./provider.ts";
+import { OpenAICompatibleProvider } from "llm-provider/provider";
 import { runReliableAgent, type Tool } from "./reliableAgent.ts";
 import { readFileSchema, readFileTool, runTests, runTestsSchema } from "./tools.ts";
 

@@ -1,17 +1,17 @@
 {
-  "name": "01-basic-llm",
+  "name": "llm-provider",
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "scripts": {
-    "start": "tsx src/index.ts"
+  "exports": {
+    "./config": "./src/config.ts",
+    "./provider": "./src/provider.ts"
   },
   "dependencies": {
-    "llm-provider": "workspace:*"
+    "dotenv": "^16.4.5"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
-    "tsx": "^4.19.0",
     "typescript": "^5.6.0"
   }
 }

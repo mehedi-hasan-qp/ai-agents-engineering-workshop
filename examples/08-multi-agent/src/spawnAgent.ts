@@ -1,5 +1,5 @@
 import { runAgent, type Tool } from "./agent.ts";
-import type { LLMProvider } from "./provider.ts";
+import type { LLMProvider } from "llm-provider/provider";
 
 export interface SubAgentTask {
   task: string;

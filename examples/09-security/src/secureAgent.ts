@@ -1,4 +1,4 @@
-import type { ChatMessage, LLMProvider } from "./provider.ts";
+import type { ChatMessage, LLMProvider } from "llm-provider/provider";
 import { runWithPolicy } from "./policy.ts";
 import type { Tool } from "./registry.ts";
 

@@ -1,6 +1,6 @@
 import { runAgent } from "./agent.ts";
-import { loadConfig } from "./config.ts";
-import { OpenAICompatibleProvider } from "./provider.ts";
+import { loadConfig } from "llm-provider/config";
+import { OpenAICompatibleProvider } from "llm-provider/provider";
 import { spawnAgent } from "./spawnAgent.ts";
 import { readFileSchema, readFileTool, searchCode, searchCodeSchema } from "./tools.ts";
 

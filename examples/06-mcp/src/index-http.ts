@@ -3,9 +3,9 @@ import { setTimeout as sleep } from "node:timers/promises";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import { runAgent } from "./agent.ts";
-import { loadConfig } from "./config.ts";
+import { loadConfig } from "llm-provider/config";
 import { discoverTools } from "./mcpClient.ts";
-import { OpenAICompatibleProvider } from "./provider.ts";
+import { OpenAICompatibleProvider } from "llm-provider/provider";
 
 // Same tools, different transport: the server runs standalone over HTTP and
 // the client connects to it like it would to any remote service.

@@ -1,9 +1,9 @@
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js";
 import { runAgent } from "./agent.ts";
-import { loadConfig } from "./config.ts";
+import { loadConfig } from "llm-provider/config";
 import { discoverTools } from "./mcpClient.ts";
-import { OpenAICompatibleProvider } from "./provider.ts";
+import { OpenAICompatibleProvider } from "llm-provider/provider";
 
 // The client spawns the MCP server as a child process and speaks to it over
 // stdin/stdout - no ports, no networking, just a pipe.

@@ -6,12 +6,13 @@
   "scripts": {
     "start:stdio": "tsx src/index-stdio.ts",
     "start:http": "tsx src/index-http.ts",
+    "start:external": "tsx src/index-external.ts",
     "pretest:fixture": "cd src/fixture/pokedex-api && npm install",
     "test:fixture": "cd src/fixture/pokedex-api && npm test"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",
-    "dotenv": "^16.4.5",
+    "llm-provider": "workspace:*",
     "zod": "^3.24.0"
   },
   "devDependencies": {

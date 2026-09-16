@@ -1,6 +1,6 @@
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
-import type { ToolSchema } from "./provider.ts";
+import type { ToolSchema } from "llm-provider/provider";
 
 const execFileAsync = promisify(execFile);
 

@@ -23,9 +23,9 @@ importers:
 
   examples/01-basic-llm:
     dependencies:
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.6.1
+      llm-provider:
+        specifier: workspace:*
+        version: link:../../packages/llm-provider
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -39,9 +39,9 @@ importers:
 
   examples/02-tool-calling:
     dependencies:
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.6.1
+      llm-provider:
+        specifier: workspace:*
+        version: link:../../packages/llm-provider
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -55,9 +55,9 @@ importers:
 
   examples/03-agent-loop:
     dependencies:
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.6.1
+      llm-provider:
+        specifier: workspace:*
+        version: link:../../packages/llm-provider
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -71,9 +71,9 @@ importers:
 
   examples/04-state:
     dependencies:
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.6.1
+      llm-provider:
+        specifier: workspace:*
+        version: link:../../packages/llm-provider
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -87,9 +87,9 @@ importers:
 
   examples/05-tool-design:
     dependencies:
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.6.1
+      llm-provider:
+        specifier: workspace:*
+        version: link:../../packages/llm-provider
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -106,9 +106,9 @@ importers:
       '@modelcontextprotocol/sdk':
         specifier: ^1.30.0
         version: 1.30.0(zod@3.25.76)
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.6.1
+      llm-provider:
+        specifier: workspace:*
+        version: link:../../packages/llm-provider
       zod:
         specifier: ^3.24.0
         version: 3.25.76
@@ -125,9 +125,9 @@ importers:
 
   examples/07-sub-agent:
     dependencies:
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.6.1
+      llm-provider:
+        specifier: workspace:*
+        version: link:../../packages/llm-provider
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -141,9 +141,9 @@ importers:
 
   examples/08-multi-agent:
     dependencies:
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.6.1
+      llm-provider:
+        specifier: workspace:*
+        version: link:../../packages/llm-provider
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -157,9 +157,9 @@ importers:
 
   examples/09-security:
     dependencies:
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.6.1
+      llm-provider:
+        specifier: workspace:*
+        version: link:../../packages/llm-provider
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -173,9 +173,9 @@ importers:
 
   examples/10-reliability:
     dependencies:
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.6.1
+      llm-provider:
+        specifier: workspace:*
+        version: link:../../packages/llm-provider
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -189,9 +189,9 @@ importers:
 
   examples/11-observability:
     dependencies:
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.6.1
+      llm-provider:
+        specifier: workspace:*
+        version: link:../../packages/llm-provider
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -205,9 +205,9 @@ importers:
 
   examples/12-evaluation:
     dependencies:
-      dotenv:
-        specifier: ^16.4.5
-        version: 16.6.1
+      llm-provider:
+        specifier: workspace:*
+        version: link:../../packages/llm-provider
     devDependencies:
       '@types/node':
         specifier: ^22.0.0
@@ -215,6 +215,19 @@ importers:
       tsx:
         specifier: ^4.19.0
         version: 4.23.13
+      typescript:
+        specifier: ^5.6.0
+        version: 5.9.3
+
+  packages/llm-provider:
+    dependencies:
+      dotenv:
+        specifier: ^16.4.5
+        version: 16.6.1
+    devDependencies:
+      '@types/node':
+        specifier: ^22.0.0
+        version: 22.20.2
       typescript:
         specifier: ^5.6.0
         version: 5.9.3

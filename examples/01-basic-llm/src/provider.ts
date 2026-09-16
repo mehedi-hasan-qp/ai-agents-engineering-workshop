@@ -1,4 +1,4 @@
-import type { LLMConfig } from "./config.ts";
+import type { LLMConfig } from "llm-provider/config";
 
 export interface ChatMessage {
   role: "system" | "user" | "assistant";
@@ -23,25 +23,47 @@ export class OpenAICompatibleProvider implements LLMProvider {
   constructor(private config: LLMConfig) {}
 
   async chat(request: ChatRequest): Promise<ChatResponse> {
-    const response = await fetch(`${this.config.baseUrl}/chat/completions`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${this.config.apiKey}`,
-      },
-      body: JSON.stringify({
-        model: this.config.model,
-        messages: request.messages,
-      }),
-    });
+    const stopSpinner = startSpinner();
+    try {
+      const response = await fetch(`${this.config.baseUrl}/chat/completions`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.config.apiKey}`,
+        },
+        body: JSON.stringify({
+          model: this.config.model,
+          messages: request.messages,
+        }),
+      });
 
-    if (!response.ok) {
-      throw new Error(`LLM request failed: ${await formatApiError(response)}`);
+      if (!response.ok) {
+        throw new Error(`LLM request failed: ${await formatApiError(response)}`);
+      }
+
+      const data = await response.json();
+      return { message: data.choices[0].message };
+    } finally {
+      stopSpinner();
     }
-
-    const data = await response.json();
-    return { message: data.choices[0].message };
   }
+}
+
+// Shows progress while waiting on the model. No-op outside a TTY so piped
+// or CI output stays clean.
+function startSpinner(): () => void {
+  if (!process.stdout.isTTY) return () => {};
+
+  const frames = ["\u28f7", "\u28ef", "\u28df", "\u28bf", "\u287f", "\u28fb", "\u28fd", "\u28fe"];
+  let i = 0;
+  const interval = setInterval(() => {
+    process.stdout.write(`\r${frames[i++ % frames.length]} thinking...`);
+  }, 80);
+
+  return () => {
+    clearInterval(interval);
+    process.stdout.write("\r\x1b[K");
+  };
 }
 
 // Providers return a JSON error body of varying shape. Pull out just the

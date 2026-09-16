@@ -1,4 +1,4 @@
-import type { ChatMessage, LLMProvider, ToolSchema } from "./provider.ts";
+import type { ChatMessage, LLMProvider, ToolSchema } from "llm-provider/provider";
 
 export interface Tool {
   schema: ToolSchema;
