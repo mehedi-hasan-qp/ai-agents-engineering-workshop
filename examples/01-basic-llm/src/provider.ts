@@ -36,12 +36,24 @@ export class OpenAICompatibleProvider implements LLMProvider {
     });
 
     if (!response.ok) {
-      throw new Error(
-        `LLM request failed: ${response.status} ${await response.text()}`,
-      );
+      throw new Error(`LLM request failed: ${await formatApiError(response)}`);
     }
 
     const data = await response.json();
     return { message: data.choices[0].message };
+  }
+}
+
+// Providers return a JSON error body of varying shape. Pull out just the
+// status and message instead of dumping the raw payload at the caller.
+async function formatApiError(response: Response): Promise<string> {
+  const body = await response.text();
+  try {
+    const parsed = JSON.parse(body);
+    const errorObj = Array.isArray(parsed) ? parsed[0] : parsed;
+    const message = errorObj?.error?.message ?? body;
+    return `${response.status} ${message}`;
+  } catch {
+    return `${response.status} ${body}`;
   }
 }

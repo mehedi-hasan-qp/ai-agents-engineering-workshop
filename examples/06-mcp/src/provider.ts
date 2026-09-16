@@ -4,6 +4,10 @@ export interface ToolCall {
   id: string;
   name: string;
   arguments: Record<string, unknown>;
+  // Gemini's OpenAI-compat layer ties reasoning to each function call via
+  // this opaque token. It must be echoed back unmodified on the next turn,
+  // or Gemini rejects the request. Other providers just ignore it.
+  thoughtSignature?: unknown;
 }
 
 export interface ChatMessage {
@@ -54,7 +58,7 @@ export class OpenAICompatibleProvider implements LLMProvider {
 
     if (!response.ok) {
       throw new Error(
-        `LLM request failed: ${response.status} ${await response.text()}`,
+        `LLM request failed: ${await formatApiError(response)}`,
       );
     }
 
@@ -72,6 +76,9 @@ function toWireMessages(messages: ChatMessage[]) {
       id: call.id,
       type: "function",
       function: { name: call.name, arguments: JSON.stringify(call.arguments) },
+      ...(call.thoughtSignature !== undefined && {
+        extra_content: { google: { thought_signature: call.thoughtSignature } },
+      }),
     })),
   }));
 }
@@ -83,6 +90,20 @@ function parseToolArguments(raw: string | undefined): Record<string, unknown> {
     return raw ? JSON.parse(raw) : {};
   } catch {
     return {};
+  }
+}
+
+// Providers return a JSON error body of varying shape. Pull out just the
+// status and message instead of dumping the raw payload at the caller.
+async function formatApiError(response: Response): Promise<string> {
+  const body = await response.text();
+  try {
+    const parsed = JSON.parse(body);
+    const errorObj = Array.isArray(parsed) ? parsed[0] : parsed;
+    const message = errorObj?.error?.message ?? body;
+    return `${response.status} ${message}`;
+  } catch {
+    return `${response.status} ${body}`;
   }
 }
 
@@ -108,6 +129,7 @@ function fromWireMessage(raw: any): ChatMessage {
         id: call.id,
         name: call.function.name,
         arguments: parseToolArguments(call.function.arguments),
+        thoughtSignature: call.extra_content?.google?.thought_signature,
       }),
     ),
   };
