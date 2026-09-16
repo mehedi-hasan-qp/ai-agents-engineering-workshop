@@ -46,10 +46,7 @@ export async function runAgent(
   return `Gave up after ${MAX_ITERATIONS} iterations without a final answer.`;
 }
 
-async function runWithTimeout(
-  promise: Promise<string>,
-  timeoutMs: number,
-): Promise<string> {
+async function runWithTimeout(promise: Promise<string>, timeoutMs: number): Promise<string> {
   const timeout = new Promise<string>((resolve) =>
     setTimeout(() => resolve(`Tool timed out after ${timeoutMs}ms`), timeoutMs),
   );

@@ -20,11 +20,7 @@ const httpServer = createHttpServer((req, res) => {
   });
 });
 
-async function handleRequest(
-  req: IncomingMessage,
-  res: ServerResponse,
-  body: string,
-) {
+async function handleRequest(req: IncomingMessage, res: ServerResponse, body: string) {
   let parsedBody: unknown;
   try {
     parsedBody = body ? JSON.parse(body) : undefined;

@@ -43,13 +43,7 @@ async function loadDataset(): Promise<EvalTask[]> {
 
 let passed = 0;
 for (const evalTask of dataset) {
-  const run = await runAgent(
-    provider,
-    tools,
-    systemPrompt,
-    evalTask.task,
-    evalTask.maxIterations,
-  );
+  const run = await runAgent(provider, tools, systemPrompt, evalTask.task, evalTask.maxIterations);
   const result = score(evalTask, run);
 
   console.log(`${result.pass ? "PASS" : "FAIL"} - ${result.task}`);

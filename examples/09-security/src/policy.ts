@@ -12,10 +12,7 @@ const POLICY_BY_KIND: Record<ToolKind, Approval> = {
   execute: "approval",
 };
 
-export async function runWithPolicy(
-  tool: Tool,
-  args: unknown,
-): Promise<string> {
+export async function runWithPolicy(tool: Tool, args: unknown): Promise<string> {
   const approval = POLICY_BY_KIND[tool.kind];
 
   if (approval === "blocked") {
@@ -31,9 +28,7 @@ export async function runWithPolicy(
 
 async function confirm(toolName: string, args: unknown): Promise<boolean> {
   const rl = createInterface({ input: process.stdin, output: process.stdout });
-  const answer = await rl.question(
-    `Approve ${toolName}(${JSON.stringify(args)})? [y/N] `,
-  );
+  const answer = await rl.question(`Approve ${toolName}(${JSON.stringify(args)})? [y/N] `);
   rl.close();
   return answer.trim().toLowerCase() === "y";
 }

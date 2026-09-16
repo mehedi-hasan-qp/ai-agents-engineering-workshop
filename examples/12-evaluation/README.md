@@ -2,7 +2,7 @@
 
 Agent evaluation isn't `input -> expected output` - the same task can be
 solved through many different valid tool sequences. `dataset.json` encodes
-what a *reasonable trajectory* looks like instead of one exact answer:
+what a _reasonable trajectory_ looks like instead of one exact answer:
 
 ```json
 { "task": "...", "expectedTools": ["run_tests"], "maxIterations": 5 }

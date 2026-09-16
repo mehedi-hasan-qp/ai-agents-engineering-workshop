@@ -2,12 +2,7 @@ import { loadConfig } from "./config.ts";
 import { flakySearchCode, flakySearchCodeSchema } from "./flakyTools.ts";
 import { OpenAICompatibleProvider } from "./provider.ts";
 import { runReliableAgent, type Tool } from "./reliableAgent.ts";
-import {
-  readFileSchema,
-  readFileTool,
-  runTests,
-  runTestsSchema,
-} from "./tools.ts";
+import { readFileSchema, readFileTool, runTests, runTestsSchema } from "./tools.ts";
 
 const config = loadConfig();
 const provider = new OpenAICompatibleProvider(config);

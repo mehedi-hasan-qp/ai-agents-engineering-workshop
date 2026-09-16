@@ -19,17 +19,13 @@ export interface EvalResult {
 export function score(task: EvalTask, run: AgentRun): EvalResult {
   const reasons: string[] = [];
 
-  const missingTools = task.expectedTools.filter(
-    (tool) => !run.toolsCalled.includes(tool),
-  );
+  const missingTools = task.expectedTools.filter((tool) => !run.toolsCalled.includes(tool));
   if (missingTools.length > 0) {
     reasons.push(`Never called expected tool(s): ${missingTools.join(", ")}`);
   }
 
   if (run.iterations >= task.maxIterations) {
-    reasons.push(
-      `Used all ${task.maxIterations} iterations without a confident final answer`,
-    );
+    reasons.push(`Used all ${task.maxIterations} iterations without a confident final answer`);
   }
 
   return { task: task.task, pass: reasons.length === 0, reasons };

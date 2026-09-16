@@ -30,11 +30,7 @@ export const searchCodeSchema: ToolSchema = {
   },
 };
 
-export async function searchCode({
-  query,
-}: {
-  query: string;
-}): Promise<string> {
+export async function searchCode({ query }: { query: string }): Promise<string> {
   const files = await listSourceFiles(FIXTURE_ROOT);
   const matches: string[] = [];
 
@@ -42,9 +38,7 @@ export async function searchCode({
     const content = await readFile(file, "utf-8");
     content.split("\n").forEach((line, index) => {
       if (line.includes(query)) {
-        matches.push(
-          `${path.relative(FIXTURE_ROOT, file)}:${index + 1}: ${line.trim()}`,
-        );
+        matches.push(`${path.relative(FIXTURE_ROOT, file)}:${index + 1}: ${line.trim()}`);
       }
     });
   }
@@ -84,18 +78,13 @@ export const readFileSchema: ToolSchema = {
   },
 };
 
-export async function readFileTool({
-  path: relativePath,
-}: {
-  path: string;
-}): Promise<string> {
+export async function readFileTool({ path: relativePath }: { path: string }): Promise<string> {
   return readFile(resolveInFixture(relativePath), "utf-8");
 }
 
 export const listFilesSchema: ToolSchema = {
   name: "list_files",
-  description:
-    "List files in the Pokédex API project, optionally under a sub-path.",
+  description: "List files in the Pokédex API project, optionally under a sub-path.",
   parameters: {
     type: "object",
     properties: {
@@ -107,11 +96,7 @@ export const listFilesSchema: ToolSchema = {
   },
 };
 
-export async function listFiles({
-  path: relativePath,
-}: {
-  path?: string;
-}): Promise<string> {
+export async function listFiles({ path: relativePath }: { path?: string }): Promise<string> {
   const files = await listSourceFiles(resolveInFixture(relativePath ?? "."));
   return files.map((file) => path.relative(FIXTURE_ROOT, file)).join("\n");
 }

@@ -1,12 +1,7 @@
 import { loadConfig } from "./config.ts";
 import { OpenAICompatibleProvider } from "./provider.ts";
 import { spawnAgent } from "./spawnAgent.ts";
-import {
-  readFileSchema,
-  readFileTool,
-  searchCode,
-  searchCodeSchema,
-} from "./tools.ts";
+import { readFileSchema, readFileTool, searchCode, searchCodeSchema } from "./tools.ts";
 
 const config = loadConfig();
 const provider = new OpenAICompatibleProvider(config);

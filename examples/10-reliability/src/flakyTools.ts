@@ -15,14 +15,10 @@ export const flakySearchCodeSchema: ToolSchema = {
 // transient failure (a flaky network call, a rate limit) that a retry
 // should recover from without the agent ever seeing it.
 let attempts = 0;
-export async function flakySearchCode(args: {
-  query: string;
-}): Promise<string> {
+export async function flakySearchCode(args: { query: string }): Promise<string> {
   attempts++;
   if (attempts === 1) {
-    throw new Error(
-      "Simulated transient failure (as if a network call dropped)",
-    );
+    throw new Error("Simulated transient failure (as if a network call dropped)");
   }
   return searchCode(args);
 }

@@ -18,11 +18,7 @@ export const executeAnythingSchema: ToolSchema = {
   },
 };
 
-export async function executeAnything({
-  input,
-}: {
-  input: string;
-}): Promise<string> {
+export async function executeAnything({ input }: { input: string }): Promise<string> {
   const { stdout } = await execFileAsync("sh", ["-c", input]);
   return stdout;
 }

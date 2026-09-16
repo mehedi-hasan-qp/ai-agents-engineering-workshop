@@ -49,8 +49,7 @@ export async function runAgent(
     }
 
     messages.push(response.message);
-    state.toolCallsByName[toolCall.name] =
-      (state.toolCallsByName[toolCall.name] ?? 0) + 1;
+    state.toolCallsByName[toolCall.name] = (state.toolCallsByName[toolCall.name] ?? 0) + 1;
 
     const tool = toolsByName.get(toolCall.name);
     const rawResult = tool
@@ -73,10 +72,7 @@ function truncate(result: string): string {
   return `${result.slice(0, MAX_TOOL_RESULT_CHARS)}\n... [truncated ${omitted} more characters]`;
 }
 
-async function runWithTimeout(
-  promise: Promise<string>,
-  timeoutMs: number,
-): Promise<string> {
+async function runWithTimeout(promise: Promise<string>, timeoutMs: number): Promise<string> {
   const timeout = new Promise<string>((resolve) =>
     setTimeout(() => resolve(`Tool timed out after ${timeoutMs}ms`), timeoutMs),
   );

@@ -64,10 +64,7 @@ export async function runAgent(
   };
 }
 
-async function runWithTimeout(
-  promise: Promise<string>,
-  timeoutMs: number,
-): Promise<string> {
+async function runWithTimeout(promise: Promise<string>, timeoutMs: number): Promise<string> {
   const timeout = new Promise<string>((resolve) =>
     setTimeout(() => resolve(`Tool timed out after ${timeoutMs}ms`), timeoutMs),
   );

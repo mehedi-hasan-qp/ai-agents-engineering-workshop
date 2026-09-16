@@ -16,9 +16,7 @@ await sleep(1000);
 
 const client = new Client({ name: "workshop-agent", version: "1.0.0" });
 try {
-  await client.connect(
-    new StreamableHTTPClientTransport(new URL("http://localhost:4400/mcp")),
-  );
+  await client.connect(new StreamableHTTPClientTransport(new URL("http://localhost:4400/mcp")));
 } catch (error) {
   server.kill();
   throw new Error(

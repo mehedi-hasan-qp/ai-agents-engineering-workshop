@@ -5,7 +5,5 @@ console.log(JSON.stringify(badTool.schema, null, 2));
 
 console.log("\nGood tool schemas (narrow, typed, classified):");
 for (const tool of goodTools) {
-  console.log(
-    `- ${tool.schema.name} [${tool.kind}]: ${tool.schema.description}`,
-  );
+  console.log(`- ${tool.schema.name} [${tool.kind}]: ${tool.schema.description}`);
 }

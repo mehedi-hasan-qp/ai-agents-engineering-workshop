@@ -67,20 +67,20 @@ On [`gh-pages`](https://github.com/salauddin-sifat-qp/ai-agents-engineering-work
 
 ## Progression
 
-| # | Example | Concept |
-| --- | --- | --- |
-| 01 | `basic-llm` | `User -> LLM -> Response`, no agent behavior |
-| 02 | `tool-calling` | Model requests a tool call, app executes it |
-| 03 | `agent-loop` | Observe -> decide -> act -> repeat, with `MAX_ITERATIONS` / timeouts |
-| 04 | `state` | Conversation history vs. agent state, tool-output truncation |
-| 05 | `tool-design` | Narrow typed tools vs. `execute_anything(input)`, a `ToolRegistry` |
-| 06 | `mcp` | Same tools over MCP, stdio and HTTP transports |
-| 07 | `sub-agent` | `spawnAgent` — nested agent loop, isolated context |
-| 08 | `multi-agent` | Supervisor, sequential, parallel, critic-loop patterns |
-| 09 | `security` | Tool classification, approval gate, prompt injection |
-| 10 | `reliability` | Timeouts, retries, structured tool errors, bounded iterations |
-| 11 | `observability` | Structured JSON tracing of every LLM and tool call |
-| 12 | `evaluation` | Rule-based scoring of an agent's tool-call trajectory |
+| #   | Example         | Concept                                                              |
+| --- | --------------- | -------------------------------------------------------------------- |
+| 01  | `basic-llm`     | `User -> LLM -> Response`, no agent behavior                         |
+| 02  | `tool-calling`  | Model requests a tool call, app executes it                          |
+| 03  | `agent-loop`    | Observe -> decide -> act -> repeat, with `MAX_ITERATIONS` / timeouts |
+| 04  | `state`         | Conversation history vs. agent state, tool-output truncation         |
+| 05  | `tool-design`   | Narrow typed tools vs. `execute_anything(input)`, a `ToolRegistry`   |
+| 06  | `mcp`           | Same tools over MCP, stdio and HTTP transports                       |
+| 07  | `sub-agent`     | `spawnAgent` — nested agent loop, isolated context                   |
+| 08  | `multi-agent`   | Supervisor, sequential, parallel, critic-loop patterns               |
+| 09  | `security`      | Tool classification, approval gate, prompt injection                 |
+| 10  | `reliability`   | Timeouts, retries, structured tool errors, bounded iterations        |
+| 11  | `observability` | Structured JSON tracing of every LLM and tool call                   |
+| 12  | `evaluation`    | Rule-based scoring of an agent's tool-call trajectory                |
 
 ## Glossary
 

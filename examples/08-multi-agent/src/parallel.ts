@@ -2,12 +2,7 @@ import { runAgent } from "./agent.ts";
 import { loadConfig } from "./config.ts";
 import { OpenAICompatibleProvider } from "./provider.ts";
 import { spawnAgent } from "./spawnAgent.ts";
-import {
-  readFileSchema,
-  readFileTool,
-  searchCode,
-  searchCodeSchema,
-} from "./tools.ts";
+import { readFileSchema, readFileTool, searchCode, searchCodeSchema } from "./tools.ts";
 
 // Independent agents investigate the same question from different angles at
 // the same time; a synthesizer reconciles their answers into one.

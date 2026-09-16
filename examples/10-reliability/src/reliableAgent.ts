@@ -76,15 +76,9 @@ async function runWithRetries(tool: Tool, args: unknown): Promise<ToolOutcome> {
   };
 }
 
-async function runWithTimeout(
-  promise: Promise<string>,
-  timeoutMs: number,
-): Promise<string> {
+async function runWithTimeout(promise: Promise<string>, timeoutMs: number): Promise<string> {
   const timeout = new Promise<string>((_, reject) =>
-    setTimeout(
-      () => reject(new Error(`Timed out after ${timeoutMs}ms`)),
-      timeoutMs,
-    ),
+    setTimeout(() => reject(new Error(`Timed out after ${timeoutMs}ms`)), timeoutMs),
   );
   return Promise.race([promise, timeout]);
 }

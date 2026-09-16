@@ -26,9 +26,7 @@ if (!toolCall) {
   process.exit(0);
 }
 
-console.log(
-  `Model requested: ${toolCall.name}(${JSON.stringify(toolCall.arguments)})`,
-);
+console.log(`Model requested: ${toolCall.name}(${JSON.stringify(toolCall.arguments)})`);
 
 const result = await searchCode(toolCall.arguments as { query: string });
 console.log(`Tool result:\n${result}\n`);

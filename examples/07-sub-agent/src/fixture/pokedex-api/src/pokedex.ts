@@ -16,7 +16,5 @@ export function getPokemonById(id: number): Pokemon | undefined {
 
 // Bug: does not trim whitespace before comparing names.
 export function getPokemonByName(name: string): Pokemon | undefined {
-  return POKEDEX.find(
-    (pokemon) => pokemon.name.toLowerCase() === name.toLowerCase(),
-  );
+  return POKEDEX.find((pokemon) => pokemon.name.toLowerCase() === name.toLowerCase());
 }

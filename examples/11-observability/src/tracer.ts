@@ -13,14 +13,10 @@ export type TraceEvent =
   | { type: "run_end"; iterations: number; durationMs: number };
 
 export function trace(event: TraceEvent): void {
-  console.log(
-    JSON.stringify({ timestamp: new Date().toISOString(), ...event }),
-  );
+  console.log(JSON.stringify({ timestamp: new Date().toISOString(), ...event }));
 }
 
-export async function timed<T>(
-  fn: () => Promise<T>,
-): Promise<{ result: T; durationMs: number }> {
+export async function timed<T>(fn: () => Promise<T>): Promise<{ result: T; durationMs: number }> {
   const start = performance.now();
   const result = await fn();
   return { result, durationMs: Math.round(performance.now() - start) };
