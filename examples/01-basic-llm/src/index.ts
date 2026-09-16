@@ -6,9 +6,14 @@ import { OpenAICompatibleProvider } from "./provider.ts";
 const config = loadConfig();
 const provider = new OpenAICompatibleProvider(config);
 
+// The system message sets the model's operating mode for the whole
+// conversation: persona, constraints, rules. It's sent on every call, same
+// as the user message, and the model treats it as the highest-priority
+// instruction. Every example after this one carries a system prompt.
 const response = await provider.chat({
   messages: [
-    { role: "user", content: "In one sentence, what is an AI agent?" },
+    { role: "system", content: "Answer in exactly one plain sentence, no caveats." },
+    { role: "user", content: "What is an AI agent?" },
   ],
 });
 
