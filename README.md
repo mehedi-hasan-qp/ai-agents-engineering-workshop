@@ -31,6 +31,8 @@ Model must support tool/function calling.
 
 Default: **[Google Gemini](https://aistudio.google.com/apikey)** — free tier, `https://generativelanguage.googleapis.com/v1beta/openai`, `gemini-3.5-flash-lite`. Already set in `.env.example`.
 
+Free tier caps at 15 requests/minute. Each participant needs their own key — don't share one across a room.
+
 Missing/incomplete `.env` fails fast with a clear error.
 
 ## Run
