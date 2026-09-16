@@ -84,7 +84,6 @@ script live on the [`gh-pages` branch](https://github.com/salauddin-sifat-qp/ai-
 
 - Live deck: <https://salauddin-sifat-qp.github.io/ai-agents-engineering-workshop/>
 - Architecture: [`docs/architecture.md`](https://github.com/salauddin-sifat-qp/ai-agents-engineering-workshop/blob/gh-pages/docs/architecture.md)
-- Speaker script: [`script.md`](https://github.com/salauddin-sifat-qp/ai-agents-engineering-workshop/blob/gh-pages/script.md)
 
 ## Workshop progression
 
