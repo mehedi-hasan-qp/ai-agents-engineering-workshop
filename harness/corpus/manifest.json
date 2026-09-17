@@ -1,0 +1,1140 @@
+{
+  "source": "https://www.questionpro.com/help",
+  "capturedAt": "2026-09-16",
+  "pages": [
+    {
+      "slug": "alternate-colors",
+      "title": "Setting alternating color display",
+      "section": "general",
+      "url": "https://www.questionpro.com/help/Alternate-colors.html",
+      "words": 150
+    },
+    {
+      "slug": "assessments-assessment-add-score",
+      "title": "Assessment - Add Score",
+      "section": "assessments",
+      "url": "https://www.questionpro.com/help/assessments/assessment-add-score.html",
+      "words": 152
+    },
+    {
+      "slug": "assessments-assessment-add-vendor",
+      "title": "Assessment - Add Vendor",
+      "section": "assessments",
+      "url": "https://www.questionpro.com/help/assessments/assessment-add-vendor.html",
+      "words": 204
+    },
+    {
+      "slug": "assessments-assessment-create-portal",
+      "title": "Assessment - Create Portal",
+      "section": "assessments",
+      "url": "https://www.questionpro.com/help/assessments/assessment-create-portal.html",
+      "words": 147
+    },
+    {
+      "slug": "assessments-assessment-delegation",
+      "title": "Assessment Delegations",
+      "section": "assessments",
+      "url": "https://www.questionpro.com/help/assessments/assessment-delegation.html",
+      "words": 223
+    },
+    {
+      "slug": "assessments-assessment-document-attachment-setup",
+      "title": "Assessment - Document Attachment Setup",
+      "section": "assessments",
+      "url": "https://www.questionpro.com/help/assessments/assessment-document-attachment-setup.html",
+      "words": 103
+    },
+    {
+      "slug": "assessments-assessment-document-attachment-upload",
+      "title": "Assessment - Document Attachment Upload",
+      "section": "assessments",
+      "url": "https://www.questionpro.com/help/assessments/assessment-document-attachment-upload.html",
+      "words": 143
+    },
+    {
+      "slug": "assessments-assessment-document-attachment-view",
+      "title": "Assessment – View Document Attachment",
+      "section": "assessments",
+      "url": "https://www.questionpro.com/help/assessments/assessment-document-attachment-view.html",
+      "words": 144
+    },
+    {
+      "slug": "assessments-assessment-sub-account",
+      "title": "Assessment: Multi-User Account",
+      "section": "assessments",
+      "url": "https://www.questionpro.com/help/assessments/assessment-sub-account.html",
+      "words": 369
+    },
+    {
+      "slug": "assessments-assessment-vendor-score",
+      "title": "Assessment - Vendor Score",
+      "section": "assessments",
+      "url": "https://www.questionpro.com/help/assessments/assessment-vendor-score.html",
+      "words": 176
+    },
+    {
+      "slug": "assessments-assessment-watchers",
+      "title": "Assessment - Setting up watchers list",
+      "section": "assessments",
+      "url": "https://www.questionpro.com/help/assessments/assessment-watchers.html",
+      "words": 174
+    },
+    {
+      "slug": "assessments-attach-assessment",
+      "title": "Assessment - Attach Assessment",
+      "section": "assessments",
+      "url": "https://www.questionpro.com/help/assessments/attach-assessment.html",
+      "words": 78
+    },
+    {
+      "slug": "assessments-create-assessment",
+      "title": "Assessment – Create Assessment",
+      "section": "assessments",
+      "url": "https://www.questionpro.com/help/assessments/create-assessment.html",
+      "words": 116
+    },
+    {
+      "slug": "assessments-edit-assessment",
+      "title": "Assessment - Edit Assessment",
+      "section": "assessments",
+      "url": "https://www.questionpro.com/help/assessments/edit-assessment.html",
+      "words": 233
+    },
+    {
+      "slug": "assessments-linkedin-integration",
+      "title": "Assessments - LinkedIn - Social Login",
+      "section": "assessments",
+      "url": "https://www.questionpro.com/help/assessments/linkedin-integration.html",
+      "words": 188
+    },
+    {
+      "slug": "audience-audience-ir-management",
+      "title": "Incidence Rate(IR) Management",
+      "section": "audience",
+      "url": "https://www.questionpro.com/help/audience/audience-ir-management.html",
+      "words": 563
+    },
+    {
+      "slug": "audience-audience-qualification-library",
+      "title": "Audience Qualification Library",
+      "section": "audience",
+      "url": "https://www.questionpro.com/help/audience/audience-qualification-library.html",
+      "words": 197
+    },
+    {
+      "slug": "audience-audience-reconciliation",
+      "title": "Audience Reconciliation",
+      "section": "audience",
+      "url": "https://www.questionpro.com/help/audience/audience-reconciliation.html",
+      "words": 1125
+    },
+    {
+      "slug": "audience-audience-template",
+      "title": "Audience Templates",
+      "section": "audience",
+      "url": "https://www.questionpro.com/help/audience/audience-template.html",
+      "words": 669
+    },
+    {
+      "slug": "audience-census-balancing",
+      "title": "Audience balancing",
+      "section": "audience",
+      "url": "https://www.questionpro.com/help/audience/census-balancing.html",
+      "words": 303
+    },
+    {
+      "slug": "audience-converse-ai",
+      "title": "Converse AI",
+      "section": "audience",
+      "url": "https://www.questionpro.com/help/audience/converse-ai.html",
+      "words": 422
+    },
+    {
+      "slug": "audience-in-depth-interviews",
+      "title": "In-Depth Interviews (IDI)",
+      "section": "audience",
+      "url": "https://www.questionpro.com/help/audience/in-depth-interviews.html",
+      "words": 311
+    },
+    {
+      "slug": "audience-instant-answer",
+      "title": "Instant answers",
+      "section": "audience",
+      "url": "https://www.questionpro.com/help/audience/instant-answer.html",
+      "words": 281
+    },
+    {
+      "slug": "audience-ir-by-ai",
+      "title": "IR by AI",
+      "section": "audience",
+      "url": "https://www.questionpro.com/help/audience/ir-by-ai.html",
+      "words": 1201
+    },
+    {
+      "slug": "audience-multi-country-launch",
+      "title": "Multi-country launch",
+      "section": "audience",
+      "url": "https://www.questionpro.com/help/audience/multi-country-launch.html",
+      "words": 628
+    },
+    {
+      "slug": "audience-nested-quota",
+      "title": "Nested quota",
+      "section": "audience",
+      "url": "https://www.questionpro.com/help/audience/nested-quota.html",
+      "words": 419
+    },
+    {
+      "slug": "audience-sample-boost",
+      "title": "Project Push (Sample Boost)",
+      "section": "audience",
+      "url": "https://www.questionpro.com/help/audience/sample-boost.html",
+      "words": 646
+    },
+    {
+      "slug": "audience-specialized-sample",
+      "title": "Specialized Sample",
+      "section": "audience",
+      "url": "https://www.questionpro.com/help/audience/specialized-sample.html",
+      "words": 933
+    },
+    {
+      "slug": "audience-workbook",
+      "title": "Synthetic cohort",
+      "section": "audience",
+      "url": "https://www.questionpro.com/help/audience/Workbook.html",
+      "words": 402
+    },
+    {
+      "slug": "bi-add-advanced-reports-to-dashboards",
+      "title": "Add advanced report to BI dashboard",
+      "section": "bi",
+      "url": "https://www.questionpro.com/help/bi/Add-advanced-reports-to-dashboards.html",
+      "words": 618
+    },
+    {
+      "slug": "bi-adding-a-widget",
+      "title": "Add widgets to your dashboard",
+      "section": "bi",
+      "url": "https://www.questionpro.com/help/bi/Adding-a-widget.html",
+      "words": 191
+    },
+    {
+      "slug": "bi-bar",
+      "title": "Bar Graph for your widget",
+      "section": "bi",
+      "url": "https://www.questionpro.com/help/bi/Bar.html",
+      "words": 206
+    },
+    {
+      "slug": "bi-bi-response-viewer",
+      "title": "BI-Response-Viewer",
+      "section": "bi",
+      "url": "https://www.questionpro.com/help/bi/BI-Response-Viewer.html",
+      "words": 555
+    },
+    {
+      "slug": "bi-bi-sentiment-donut",
+      "title": "Sentiment Donut",
+      "section": "bi",
+      "url": "https://www.questionpro.com/help/bi/BI-Sentiment-Donut.html",
+      "words": 530
+    },
+    {
+      "slug": "bi-bi-sentiment-stackbar",
+      "title": "Sentiment Stackbar Help File",
+      "section": "bi",
+      "url": "https://www.questionpro.com/help/bi/BI-Sentiment-Stackbar.html",
+      "words": 439
+    },
+    {
+      "slug": "bi-bi-text-response",
+      "title": "Text Response",
+      "section": "bi",
+      "url": "https://www.questionpro.com/help/bi/BI-Text-Response.html",
+      "words": 484
+    },
+    {
+      "slug": "bi-bi-text-topic-stacked-bar",
+      "title": "Topic Stackbar",
+      "section": "bi",
+      "url": "https://www.questionpro.com/help/bi/BI-Text-Topic-Stacked-Bar.html",
+      "words": 548
+    },
+    {
+      "slug": "bi-bi-word-cloud",
+      "title": "Word Cloud",
+      "section": "bi",
+      "url": "https://www.questionpro.com/help/bi/BI-Word-Cloud.html",
+      "words": 587
+    },
+    {
+      "slug": "bi-comparative-bar",
+      "title": "Comparative Bar",
+      "section": "bi",
+      "url": "https://www.questionpro.com/help/bi/Comparative-Bar.html",
+      "words": 544
+    },
+    {
+      "slug": "bi-exports",
+      "title": "BI - Exports",
+      "section": "bi",
+      "url": "https://www.questionpro.com/help/bi/Exports.html",
+      "words": 363
+    },
+    {
+      "slug": "bi-gauge-widget",
+      "title": "Gauge Widget",
+      "section": "bi",
+      "url": "https://www.questionpro.com/help/bi/Gauge-Widget.html",
+      "words": 524
+    },
+    {
+      "slug": "branching",
+      "title": "Branching from a multiple select question using custom scripting",
+      "section": "general",
+      "url": "https://www.questionpro.com/help/Branching.html",
+      "words": 284
+    },
+    {
+      "slug": "branching-debugging",
+      "title": "Branching and debugging",
+      "section": "general",
+      "url": "https://www.questionpro.com/help/Branching-Debugging.html",
+      "words": 212
+    },
+    {
+      "slug": "communities-assessment-profiler",
+      "title": "Assessment Profiler - Communities",
+      "section": "communities",
+      "url": "https://www.questionpro.com/help/communities/assessment-profiler.html",
+      "words": 291
+    },
+    {
+      "slug": "communities-best-practices",
+      "title": "Community Best Practices",
+      "section": "communities",
+      "url": "https://www.questionpro.com/help/communities/best-practices.html",
+      "words": 476
+    },
+    {
+      "slug": "communities-communities-hmac-sha1",
+      "title": "Communities - HMAC-SHA1 Authentication Model",
+      "section": "communities",
+      "url": "https://www.questionpro.com/help/communities/Communities-HMAC-SHA1.html",
+      "words": 416
+    },
+    {
+      "slug": "communities-communities-mobile-application-faq",
+      "title": "Communities: Mobile Application FAQ",
+      "section": "communities",
+      "url": "https://www.questionpro.com/help/communities/Communities-Mobile-Application-FAQ.html",
+      "words": 655
+    },
+    {
+      "slug": "communities-community-external-passback-page",
+      "title": "Community External Passback Page",
+      "section": "communities",
+      "url": "https://www.questionpro.com/help/communities/Community-External-Passback-Page.html",
+      "words": 155
+    },
+    {
+      "slug": "communities-community-global-page",
+      "title": "Community Global Page",
+      "section": "communities",
+      "url": "https://www.questionpro.com/help/communities/Community-Global-Page.html",
+      "words": 103
+    },
+    {
+      "slug": "communities-data-sharing-options",
+      "title": "Data Sharing Options",
+      "section": "communities",
+      "url": "https://www.questionpro.com/help/communities/Data-Sharing-Options.html",
+      "words": 381
+    },
+    {
+      "slug": "communities-hmac-sh1-sso",
+      "title": "HMAC-SHA1 (Single Sign On)",
+      "section": "communities",
+      "url": "https://www.questionpro.com/help/communities/HMAC-SH1-SSO.html",
+      "words": 395
+    },
+    {
+      "slug": "communities-invite-aicreate",
+      "title": "Write Smarter: Use AI to Create Your Survey Invitations",
+      "section": "communities",
+      "url": "https://www.questionpro.com/help/communities/Invite-AIcreate.html",
+      "words": 317
+    },
+    {
+      "slug": "communities-login-authentication",
+      "title": "Login Authentication",
+      "section": "communities",
+      "url": "https://www.questionpro.com/help/communities/Login-Authentication.html",
+      "words": 817
+    },
+    {
+      "slug": "communities-privacy-policy-communities-mobile",
+      "title": "Privacy Policy: Communities Mobile Application",
+      "section": "communities",
+      "url": "https://www.questionpro.com/help/communities/Privacy-Policy-Communities-Mobile.html",
+      "words": 1280
+    },
+    {
+      "slug": "communities-send-survey-invite-communities",
+      "title": "Communities - Send New Invitation",
+      "section": "communities",
+      "url": "https://www.questionpro.com/help/communities/Send-Survey-Invite-Communities.html",
+      "words": 832
+    },
+    {
+      "slug": "communities-twitch-authentication",
+      "title": "Communities - Twitch Authentication",
+      "section": "communities",
+      "url": "https://www.questionpro.com/help/communities/Twitch-Authentication.html",
+      "words": 313
+    },
+    {
+      "slug": "conjoint-part-worths-relative-importance",
+      "title": "Conjoint Part-Worths Calculation and Relative Importance",
+      "section": "general",
+      "url": "https://www.questionpro.com/help/Conjoint-Part-Worths-Relative-Importance.html",
+      "words": 561
+    },
+    {
+      "slug": "conjoint-scripting",
+      "title": "Conjoint Scripting",
+      "section": "general",
+      "url": "https://www.questionpro.com/help/Conjoint-Scripting.html",
+      "words": 279
+    },
+    {
+      "slug": "customer-experience-ai-personas-creator",
+      "title": "AI Persona Creator – Instantly Create Actionable Customer Personas",
+      "section": "customer-experience",
+      "url": "https://www.questionpro.com/help/customer-experience/AI-Personas-Creator.html",
+      "words": 329
+    },
+    {
+      "slug": "customer-experience-bulk-import-tickets",
+      "title": "Import External Ticket Data Into Enhanced Closed Loop",
+      "section": "customer-experience",
+      "url": "https://www.questionpro.com/help/customer-experience/Bulk-import-tickets.html",
+      "words": 129
+    },
+    {
+      "slug": "customer-experience-cx-edit-wave",
+      "title": "CX - Edit Wave",
+      "section": "customer-experience",
+      "url": "https://www.questionpro.com/help/customer-experience/CX-Edit-Wave.html",
+      "words": 155
+    },
+    {
+      "slug": "customer-experience-cx-export-transactions",
+      "title": "CX - Export Survey link",
+      "section": "customer-experience",
+      "url": "https://www.questionpro.com/help/customer-experience/CX-export-transactions.html",
+      "words": 144
+    },
+    {
+      "slug": "customer-experience-cx-feedback-settings",
+      "title": "CX- Feedback Settings",
+      "section": "customer-experience",
+      "url": "https://www.questionpro.com/help/customer-experience/CX-Feedback-Settings.html",
+      "words": 163
+    },
+    {
+      "slug": "customer-experience-cx-ftp-integration",
+      "title": "CX Auto Scheduler",
+      "section": "customer-experience",
+      "url": "https://www.questionpro.com/help/customer-experience/CX-FTP-Integration.html",
+      "words": 690
+    },
+    {
+      "slug": "customer-experience-cx-ftp-time-zones-update",
+      "title": "CX- FTP - Update Time Zones",
+      "section": "customer-experience",
+      "url": "https://www.questionpro.com/help/customer-experience/CX-FTP-time-zones-update.html",
+      "words": 163
+    },
+    {
+      "slug": "customer-experience-cx-integration",
+      "title": "CX Integration",
+      "section": "customer-experience",
+      "url": "https://www.questionpro.com/help/customer-experience/CX-Integration.html",
+      "words": 255
+    },
+    {
+      "slug": "customer-experience-cx-mobile-settings",
+      "title": "CX- Mobile Settings",
+      "section": "customer-experience",
+      "url": "https://www.questionpro.com/help/customer-experience/CX-Mobile-Settings.html",
+      "words": 180
+    },
+    {
+      "slug": "customer-experience-cx-multiple-sub-accounts",
+      "title": "CX Sub-Accounts and Permissions",
+      "section": "customer-experience",
+      "url": "https://www.questionpro.com/help/customer-experience/CX-Multiple-Sub-Accounts.html",
+      "words": 387
+    },
+    {
+      "slug": "customer-experience-cx-nps-plus",
+      "title": "AskWhy",
+      "section": "customer-experience",
+      "url": "https://www.questionpro.com/help/customer-experience/CX-NPS-plus.html",
+      "words": 1326
+    },
+    {
+      "slug": "customer-experience-cx-reminders",
+      "title": "Reminder in CX Workflow Rules",
+      "section": "customer-experience",
+      "url": "https://www.questionpro.com/help/customer-experience/CX-Reminders.html",
+      "words": 649
+    },
+    {
+      "slug": "customer-experience-cx-survey-settings",
+      "title": "Customer Experience - Survey Settings",
+      "section": "customer-experience",
+      "url": "https://www.questionpro.com/help/customer-experience/CX-Survey-Settings.html",
+      "words": 437
+    },
+    {
+      "slug": "customer-experience-cx-wave-modeling",
+      "title": "CX - Wave Modeling",
+      "section": "customer-experience",
+      "url": "https://www.questionpro.com/help/customer-experience/CX-Wave-Modeling.html",
+      "words": 149
+    },
+    {
+      "slug": "data-protection",
+      "title": "General Data Protection Regulation (GDPR)",
+      "section": "general",
+      "url": "https://www.questionpro.com/help/Data-Protection.html",
+      "words": 360
+    },
+    {
+      "slug": "forms-form-url-customization",
+      "title": "Customize Form URL",
+      "section": "forms",
+      "url": "https://www.questionpro.com/help/forms/form-url-customization.html",
+      "words": 114
+    },
+    {
+      "slug": "forms-forms-personalization",
+      "title": "Personalization",
+      "section": "forms",
+      "url": "https://www.questionpro.com/help/forms/forms-personalization.html",
+      "words": 388
+    },
+    {
+      "slug": "forms-forms-slack-integration",
+      "title": "Slack Integration of Forms",
+      "section": "forms",
+      "url": "https://www.questionpro.com/help/forms/forms-slack-integration.html",
+      "words": 110
+    },
+    {
+      "slug": "forms-forms-themes",
+      "title": "Forms Themes: Changing the look and feel of the chat bot",
+      "section": "forms",
+      "url": "https://www.questionpro.com/help/forms/forms-themes.html",
+      "words": 103
+    },
+    {
+      "slug": "insightshub-create-a-project",
+      "title": "Create a project",
+      "section": "insightshub",
+      "url": "https://www.questionpro.com/help/insightshub/create-a-project.html",
+      "words": 368
+    },
+    {
+      "slug": "insightshub-create-knowledge-graph",
+      "title": "Create a knowledge graph",
+      "section": "insightshub",
+      "url": "https://www.questionpro.com/help/insightshub/create-knowledge-graph.html",
+      "words": 197
+    },
+    {
+      "slug": "insightshub-create-snapshot",
+      "title": "InsightsHub Snapshots",
+      "section": "insightshub",
+      "url": "https://www.questionpro.com/help/insightshub/create-snapshot.html",
+      "words": 581
+    },
+    {
+      "slug": "insightshub-create-taxonomy",
+      "title": "Create Taxonomy - InsightsHub",
+      "section": "insightshub",
+      "url": "https://www.questionpro.com/help/insightshub/create-taxonomy.html",
+      "words": 290
+    },
+    {
+      "slug": "insightshub-cx-surveys",
+      "title": "CX Surveys Integration and Shared Surveys Sync",
+      "section": "insightshub",
+      "url": "https://www.questionpro.com/help/insightshub/cx-surveys.html",
+      "words": 493
+    },
+    {
+      "slug": "insightshub-file-analysis-view",
+      "title": "File analysis view",
+      "section": "insightshub",
+      "url": "https://www.questionpro.com/help/insightshub/file-analysis-view.html",
+      "words": 598
+    },
+    {
+      "slug": "insightshub-files-repository",
+      "title": "InsightsHub Repository",
+      "section": "insightshub",
+      "url": "https://www.questionpro.com/help/insightshub/files-repository.html",
+      "words": 531
+    },
+    {
+      "slug": "insightshub-global-search",
+      "title": "Global Search",
+      "section": "insightshub",
+      "url": "https://www.questionpro.com/help/insightshub/global-search.html",
+      "words": 211
+    },
+    {
+      "slug": "insightshub-insightshub-ai-chat",
+      "title": "InsightsHub AI Chat",
+      "section": "insightshub",
+      "url": "https://www.questionpro.com/help/insightshub/insightshub-ai-chat.html",
+      "words": 855
+    },
+    {
+      "slug": "insightshub-insightshub-vs-sharepoint",
+      "title": "InsightsHub vs SharePoint",
+      "section": "insightshub",
+      "url": "https://www.questionpro.com/help/insightshub/insightsHub-vs-sharepoint.html",
+      "words": 359
+    },
+    {
+      "slug": "insightshub-landing-page",
+      "title": "Landing Page",
+      "section": "insightshub",
+      "url": "https://www.questionpro.com/help/insightshub/landing-page.html",
+      "words": 202
+    },
+    {
+      "slug": "insightshub-multi-lingual-questionpro-ai",
+      "title": "Multilingual QuestionPro AI Chat",
+      "section": "insightshub",
+      "url": "https://www.questionpro.com/help/insightshub/multi-lingual-questionpro-ai.html",
+      "words": 211
+    },
+    {
+      "slug": "insightshub-portal-setup",
+      "title": "Portal Setup",
+      "section": "insightshub",
+      "url": "https://www.questionpro.com/help/insightshub/portal-setup.html",
+      "words": 753
+    },
+    {
+      "slug": "insightshub-projects-overview",
+      "title": "Projects Details",
+      "section": "insightshub",
+      "url": "https://www.questionpro.com/help/insightshub/projects-overview.html",
+      "words": 814
+    },
+    {
+      "slug": "instant-answers-instant-answers",
+      "title": "Instant Answers",
+      "section": "instant-answers",
+      "url": "https://www.questionpro.com/help/instant-answers/instant-answers.html",
+      "words": 357
+    },
+    {
+      "slug": "livepolls-ai-powered-question-generation",
+      "title": "AI-Powered Question Generation – LivePolls",
+      "section": "livepolls",
+      "url": "https://www.questionpro.com/help/livepolls/AI-Powered-Question-Generation.html",
+      "words": 419
+    },
+    {
+      "slug": "livepolls-ai-questions-generator-live-poll",
+      "title": "How to use the AI questions generator for live polls or quizzes",
+      "section": "livepolls",
+      "url": "https://www.questionpro.com/help/livepolls/ai-questions-generator-live-poll.html",
+      "words": 221
+    },
+    {
+      "slug": "livepolls-essential-mode-for-livepolls",
+      "title": "Essential Mode for LivePolls",
+      "section": "livepolls",
+      "url": "https://www.questionpro.com/help/livepolls/essential-mode-for-livepolls.html",
+      "words": 587
+    },
+    {
+      "slug": "livepolls-google-slides-chrome-extension",
+      "title": "LivePolls chrome extension for Google Slides",
+      "section": "livepolls",
+      "url": "https://www.questionpro.com/help/livepolls/google-slides-chrome-extension.html",
+      "words": 556
+    },
+    {
+      "slug": "livepolls-how-to-create-a-livepoll",
+      "title": "Create and manage LivePolls",
+      "section": "livepolls",
+      "url": "https://www.questionpro.com/help/livepolls/how-to-create-a-livepoll.html",
+      "words": 619
+    },
+    {
+      "slug": "livepolls-live-feed-in-a-quiz-or-poll",
+      "title": "How to create a live feed question for your live polls or quizzes",
+      "section": "livepolls",
+      "url": "https://www.questionpro.com/help/livepolls/live-feed-in-a-quiz-or-poll.html",
+      "words": 276
+    },
+    {
+      "slug": "livepolls-livefeed-sentiment-analysis",
+      "title": "LiveFeed Sentiment Analysis",
+      "section": "livepolls",
+      "url": "https://www.questionpro.com/help/livepolls/livefeed-sentiment-analysis.html",
+      "words": 578
+    },
+    {
+      "slug": "livepolls-livepolls-dashboard",
+      "title": "Results and Analytics",
+      "section": "livepolls",
+      "url": "https://www.questionpro.com/help/livepolls/LivePolls-Dashboard.html",
+      "words": 127
+    },
+    {
+      "slug": "livepolls-livepolls-team-leaderboards",
+      "title": "LivePolls Teams Mode and Leaderboard",
+      "section": "livepolls",
+      "url": "https://www.questionpro.com/help/livepolls/livepolls-team-leaderboards.html",
+      "words": 835
+    },
+    {
+      "slug": "livepolls-livepolls-workspaces",
+      "title": "Livepolls Workspaces",
+      "section": "livepolls",
+      "url": "https://www.questionpro.com/help/livepolls/livepolls-workspaces.html",
+      "words": 348
+    },
+    {
+      "slug": "livepolls-multiple-choice-question-live-polls",
+      "title": "Multiple Choice Questions: Poll vs Quiz",
+      "section": "livepolls",
+      "url": "https://www.questionpro.com/help/livepolls/multiple-choice-question-live-polls.html",
+      "words": 484
+    },
+    {
+      "slug": "livepolls-permanent-room",
+      "title": "Using Permanent URLs/Rooms with LivePolls",
+      "section": "livepolls",
+      "url": "https://www.questionpro.com/help/livepolls/permanent-room.html",
+      "words": 250
+    },
+    {
+      "slug": "livepolls-rating-question-type",
+      "title": "Rating Question Type",
+      "section": "livepolls",
+      "url": "https://www.questionpro.com/help/livepolls/rating-question-type.html",
+      "words": 566
+    },
+    {
+      "slug": "livepolls-results-and-analytics",
+      "title": "Results and Analytics: Dive Into the Insights with LivePolls",
+      "section": "livepolls",
+      "url": "https://www.questionpro.com/help/livepolls/results-and-analytics.html",
+      "words": 349
+    },
+    {
+      "slug": "matrix-mobile-rendering",
+      "title": "Matrix Mobile Rendering",
+      "section": "general",
+      "url": "https://www.questionpro.com/help/Matrix-Mobile-Rendering.html",
+      "words": 185
+    },
+    {
+      "slug": "metadata-scaletype",
+      "title": "Metadata - Report label and scale type",
+      "section": "general",
+      "url": "https://www.questionpro.com/help/Metadata-scaletype.html",
+      "words": 452
+    },
+    {
+      "slug": "mobile-questionpro-app-faq",
+      "title": "QuestionPro Offline App - FAQs",
+      "section": "mobile",
+      "url": "https://www.questionpro.com/help/mobile/questionpro-app-faq.html",
+      "words": 733
+    },
+    {
+      "slug": "mobile-retrieving-backup-data",
+      "title": "Retrieving backup data directly from iOS device on Windows OS",
+      "section": "mobile",
+      "url": "https://www.questionpro.com/help/mobile/retrieving-backup-data.html",
+      "words": 319
+    },
+    {
+      "slug": "mobile-retrieving-backup-data-ios-device",
+      "title": "Retrieving backup data directly from iOS device on Mac OS",
+      "section": "mobile",
+      "url": "https://www.questionpro.com/help/mobile/retrieving-backup-data-ios-device.html",
+      "words": 310
+    },
+    {
+      "slug": "mobile-retrieving-backup-data-mobile",
+      "title": "Retrieving backup data directly on Android device",
+      "section": "mobile",
+      "url": "https://www.questionpro.com/help/mobile/retrieving-backup-data-mobile.html",
+      "words": 195
+    },
+    {
+      "slug": "mobile-store-locator-on-app",
+      "title": "Store locator on QuestionPro Offline App",
+      "section": "mobile",
+      "url": "https://www.questionpro.com/help/mobile/store-locator-on-app.html",
+      "words": 134
+    },
+    {
+      "slug": "mobile-surveypocket-online-connect",
+      "title": "QuestionPro Offline App Online Connect",
+      "section": "mobile",
+      "url": "https://www.questionpro.com/help/mobile/surveypocket-online-connect.html",
+      "words": 281
+    },
+    {
+      "slug": "mobile-surveypocket-signature-feature",
+      "title": "Signature Question Type",
+      "section": "mobile",
+      "url": "https://www.questionpro.com/help/mobile/surveypocket-signature-feature.html",
+      "words": 120
+    },
+    {
+      "slug": "mobile-surveypocket-survey",
+      "title": "SurveyPocket - Offline iPad/iTouch Survey | Mobile Surveys | Smartphone Surveys",
+      "section": "mobile",
+      "url": "https://www.questionpro.com/help/mobile/surveypocket-survey.html",
+      "words": 522
+    },
+    {
+      "slug": "mobile-voice-recognition-offline",
+      "title": "Voice recognition for offline app",
+      "section": "mobile",
+      "url": "https://www.questionpro.com/help/mobile/voice-recognition-offline.html",
+      "words": 93
+    },
+    {
+      "slug": "others-edit-micropoll",
+      "title": "Edit MicroPoll - How To?",
+      "section": "others",
+      "url": "https://www.questionpro.com/help/others/edit-micropoll.html",
+      "words": 72
+    },
+    {
+      "slug": "others-micropoll-ballot-suffing",
+      "title": "MicroPoll - Ballot Suffing and Duplicate Response Checking",
+      "section": "others",
+      "url": "https://www.questionpro.com/help/others/micropoll-ballot-suffing.html",
+      "words": 160
+    },
+    {
+      "slug": "others-micropoll-newsletters",
+      "title": "Email Newsletters - Adding and Embedded Dymanic Controls",
+      "section": "others",
+      "url": "https://www.questionpro.com/help/others/micropoll-newsletters.html",
+      "words": 127
+    },
+    {
+      "slug": "others-micropoll-suggest",
+      "title": "MicroPoll Suggest - What is this?",
+      "section": "others",
+      "url": "https://www.questionpro.com/help/others/micropoll-suggest.html",
+      "words": 206
+    },
+    {
+      "slug": "others-micropoll-view-map",
+      "title": "View Map / Voting Trends - Location Based - How To?",
+      "section": "others",
+      "url": "https://www.questionpro.com/help/others/micropoll-view-map.html",
+      "words": 169
+    },
+    {
+      "slug": "others-micropoll-view-voting-trends",
+      "title": "View Voting Trends - How to?",
+      "section": "others",
+      "url": "https://www.questionpro.com/help/others/micropoll-view-voting-trends.html",
+      "words": 128
+    },
+    {
+      "slug": "others-micropoll-wordpress-plugin",
+      "title": "MicroPoll Wordpress Plugin - How To?",
+      "section": "others",
+      "url": "https://www.questionpro.com/help/others/micropoll-wordpress-plugin.html",
+      "words": 121
+    },
+    {
+      "slug": "others-share-micropolls",
+      "title": "Syndicate/Share MicroPolls",
+      "section": "others",
+      "url": "https://www.questionpro.com/help/others/share-micropolls.html",
+      "words": 252
+    },
+    {
+      "slug": "others-survey-sampling-international-panel-integration",
+      "title": "Survey Sampling International (SSI) Panel Integration - How to? (SSI integration)",
+      "section": "others",
+      "url": "https://www.questionpro.com/help/others/survey-sampling-international-panel-integration.html",
+      "words": 263
+    },
+    {
+      "slug": "partnerships-create-partner-agent-app",
+      "title": "How to add an agent app to a partner account",
+      "section": "partnerships",
+      "url": "https://www.questionpro.com/help/partnerships/create-partner-agent-app.html",
+      "words": 300
+    },
+    {
+      "slug": "partnerships-partner-apps",
+      "title": "Partner Apps",
+      "section": "partnerships",
+      "url": "https://www.questionpro.com/help/partnerships/partner-apps.html",
+      "words": 361
+    },
+    {
+      "slug": "prolific-integration",
+      "title": "Prolific Integration",
+      "section": "general",
+      "url": "https://www.questionpro.com/help/Prolific-Integration.html",
+      "words": 349
+    },
+    {
+      "slug": "recommendation-engine",
+      "title": "Recommendation Engine - How it works?",
+      "section": "general",
+      "url": "https://www.questionpro.com/help/Recommendation-Engine.html",
+      "words": 362
+    },
+    {
+      "slug": "salerforcesystem",
+      "title": "How the Salesforce.com Link Works",
+      "section": "general",
+      "url": "https://www.questionpro.com/help/SalerforceSystem.html",
+      "words": 413
+    },
+    {
+      "slug": "spss-variable-name",
+      "title": "SPSS Variable Name",
+      "section": "general",
+      "url": "https://www.questionpro.com/help/SPSS-variable-name.html",
+      "words": 341
+    },
+    {
+      "slug": "survey-email-password-protect",
+      "title": "Survey email and password protect",
+      "section": "general",
+      "url": "https://www.questionpro.com/help/Survey-Email-Password-Protect.html",
+      "words": 313
+    },
+    {
+      "slug": "survey-from-scratch",
+      "title": "Create an online survey from scratch",
+      "section": "general",
+      "url": "https://www.questionpro.com/help/Survey-From-Scratch.html",
+      "words": 205
+    },
+    {
+      "slug": "ux-accessible-usability-scale-aus",
+      "title": "Accessible Usability Scale (AUS)",
+      "section": "ux",
+      "url": "https://www.questionpro.com/help/ux/Accessible-Usability-Scale-AUS.html",
+      "words": 104
+    },
+    {
+      "slug": "ux-adobe-likability-factor-questionnaire-alfq",
+      "title": "Adobe Likability Factor Questionnaire (ALFQ)",
+      "section": "ux",
+      "url": "https://www.questionpro.com/help/ux/Adobe-Likability-Factor-Questionnaire-ALFQ.html",
+      "words": 99
+    },
+    {
+      "slug": "ux-ai-executive-summaries",
+      "title": "AI-Generated Executive Summaries",
+      "section": "ux",
+      "url": "https://www.questionpro.com/help/ux/AI-Executive-Summaries.html",
+      "words": 111
+    },
+    {
+      "slug": "ux-ai-insights-for-usability-tests",
+      "title": "AI Insights",
+      "section": "ux",
+      "url": "https://www.questionpro.com/help/ux/AI-Insights-for-Usability-Tests.html",
+      "words": 110
+    },
+    {
+      "slug": "ux-billing-and-account",
+      "title": "Billing and Profile Management",
+      "section": "ux",
+      "url": "https://www.questionpro.com/help/ux/Billing-and-account.html",
+      "words": 262
+    },
+    {
+      "slug": "ux-cancelling-an-order",
+      "title": "Cancelling an Order",
+      "section": "ux",
+      "url": "https://www.questionpro.com/help/ux/Cancelling-an-Order.html",
+      "words": 127
+    },
+    {
+      "slug": "ux-collaboration-tests",
+      "title": "Collaborating on Research Projects",
+      "section": "ux",
+      "url": "https://www.questionpro.com/help/ux/Collaboration-tests.html",
+      "words": 304
+    },
+    {
+      "slug": "ux-custom-participant-screening",
+      "title": "Custom Participant Screening",
+      "section": "ux",
+      "url": "https://www.questionpro.com/help/ux/Custom-Participant-Screening.html",
+      "words": 139
+    },
+    {
+      "slug": "ux-data-export",
+      "title": "Exporting Your Data: Usability tests, Interviews and Focus groups",
+      "section": "ux",
+      "url": "https://www.questionpro.com/help/ux/Data-Export.html",
+      "words": 84
+    },
+    {
+      "slug": "ux-demographic-filtering-for-recruiting-usability-tests-interviews-focus-groups",
+      "title": "Demographic Filtering",
+      "section": "ux",
+      "url": "https://www.questionpro.com/help/ux/Demographic-Filtering-for-recruiting-Usability-tests-Interviews-focus-groups.html",
+      "words": 81
+    },
+    {
+      "slug": "ux-end-of-test-redirect",
+      "title": "Automatic Redirect Settings",
+      "section": "ux",
+      "url": "https://www.questionpro.com/help/ux/End-of-Test-Redirect.html",
+      "words": 93
+    },
+    {
+      "slug": "ux-folder-management",
+      "title": "Folder Management",
+      "section": "ux",
+      "url": "https://www.questionpro.com/help/ux/Folder-management.html",
+      "words": 243
+    },
+    {
+      "slug": "ux-highlight-reels-usability-tests-and-interviews",
+      "title": "Creating Highlight Reels(Usability tests and Interviews)",
+      "section": "ux",
+      "url": "https://www.questionpro.com/help/ux/Highlight-reels-Usability-tests-and-Interviews.html",
+      "words": 107
+    },
+    {
+      "slug": "ux-messages",
+      "title": "Messages System",
+      "section": "ux",
+      "url": "https://www.questionpro.com/help/ux/Messages.html",
+      "words": 275
+    },
+    {
+      "slug": "workforce-360-add-new-deployment",
+      "title": "360 Add new deployment (Ongoing and Complete)",
+      "section": "workforce",
+      "url": "https://www.questionpro.com/help/workforce/360-Add-new-deployment.html",
+      "words": 392
+    },
+    {
+      "slug": "workforce-360-add-sections",
+      "title": "360 Add Sections",
+      "section": "workforce",
+      "url": "https://www.questionpro.com/help/workforce/360-Add-Sections.html",
+      "words": 275
+    },
+    {
+      "slug": "workforce-360-category-header",
+      "title": "360 category header",
+      "section": "workforce",
+      "url": "https://www.questionpro.com/help/workforce/360-category-header.html",
+      "words": 296
+    },
+    {
+      "slug": "workforce-360-delete-sections",
+      "title": "360 Delete Sections",
+      "section": "workforce",
+      "url": "https://www.questionpro.com/help/workforce/360-Delete-Sections.html",
+      "words": 194
+    },
+    {
+      "slug": "workforce-360-feedback-display-configurations",
+      "title": "360 Feedback - Display Configurations",
+      "section": "workforce",
+      "url": "https://www.questionpro.com/help/workforce/360-feedback-display-configurations.html",
+      "words": 167
+    },
+    {
+      "slug": "workforce-360-feedback-display-labels",
+      "title": "360 Feedback - Display Labels",
+      "section": "workforce",
+      "url": "https://www.questionpro.com/help/workforce/360-feedback-display-labels.html",
+      "words": 142
+    },
+    {
+      "slug": "workforce-360-feedback-display-settings",
+      "title": "360 Survey Settings",
+      "section": "workforce",
+      "url": "https://www.questionpro.com/help/workforce/360-feedback-display-settings.html",
+      "words": 157
+    },
+    {
+      "slug": "workforce-360-feedback-introductory-text",
+      "title": "360 Feedback - Introductory Text",
+      "section": "workforce",
+      "url": "https://www.questionpro.com/help/workforce/360-feedback-introductory-text.html",
+      "words": 108
+    },
+    {
+      "slug": "workforce-360-feedback-show-hide-question-logic",
+      "title": "360 feedback Show/Hide question logic",
+      "section": "workforce",
+      "url": "https://www.questionpro.com/help/workforce/360-feedback-show-hide-question-logic.html",
+      "words": 265
+    },
+    {
+      "slug": "workforce-360-reorder-section",
+      "title": "360 Reorder section",
+      "section": "workforce",
+      "url": "https://www.questionpro.com/help/workforce/360-Reorder-section.html",
+      "words": 123
+    },
+    {
+      "slug": "workforce-360-section-type-free-responses-text-section",
+      "title": "360 section type - Free responses text section",
+      "section": "workforce",
+      "url": "https://www.questionpro.com/help/workforce/360-Section-Type-Free-Responses-text-section.html",
+      "words": 405
+    },
+    {
+      "slug": "workforce-360-section-type-presentations-text-section",
+      "title": "360 Section Type - Presentations text section",
+      "section": "workforce",
+      "url": "https://www.questionpro.com/help/workforce/360-Section-Type-Presentations-text-section.html",
+      "words": 213
+    },
+    {
+      "slug": "workforce-360-section-type-single-select-section",
+      "title": "360 Section Type - Single Select Section",
+      "section": "workforce",
+      "url": "https://www.questionpro.com/help/workforce/360-Section-Type-Single-Select-Section.html",
+      "words": 350
+    },
+    {
+      "slug": "workforce-360-survey-design",
+      "title": "360 Survey design",
+      "section": "workforce",
+      "url": "https://www.questionpro.com/help/workforce/360-Survey-design.html",
+      "words": 449
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+# Captured help-centre pages. Data, not source: reformatting them would create
+# a large diff for every attendee and invalidate nothing but the review.
+harness/corpus/
+
+# Fixture projects are the agent's target, kept exactly as generated.
+**/fixture/

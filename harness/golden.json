@@ -1,0 +1,65 @@
+{
+  "note": "Ten questions with known answers, all answerable from harness/corpus. Run after every session and watch the score climb. Do not edit the questions - a benchmark you move is not a benchmark.",
+  "questions": [
+    {
+      "id": "ir-range",
+      "ask": "What range of values does the Incidence rate field accept for IR by AI?",
+      "expect": ["10", "99"],
+      "source": "audience-ir-by-ai"
+    },
+    {
+      "id": "nested-quota-max",
+      "ask": "How many criteria can be nested at once in a Nested quota?",
+      "expect": ["three"],
+      "source": "audience-nested-quota"
+    },
+    {
+      "id": "reconciliation-window",
+      "ask": "How many days after survey completion can a reconciliation request be submitted?",
+      "expect": ["30"],
+      "source": "audience-audience-reconciliation"
+    },
+    {
+      "id": "reconciliation-cap",
+      "ask": "What is the maximum number of Response IDs allowed in a single reconciliation request?",
+      "expect": ["500"],
+      "source": "audience-audience-reconciliation"
+    },
+    {
+      "id": "insightshub-formats",
+      "ask": "Which file formats can be uploaded to the InsightsHub repository?",
+      "expect": ["pdf", "docx", "pptx", "txt"],
+      "source": "insightshub-files-repository"
+    },
+    {
+      "id": "insightshub-size",
+      "ask": "What is the maximum file size for a single InsightsHub repository upload?",
+      "expect": ["20"],
+      "source": "insightshub-files-repository"
+    },
+    {
+      "id": "livepolls-teams",
+      "ask": "What is the maximum number of teams per LivePolls session?",
+      "expect": ["10"],
+      "source": "livepolls-livepolls-team-leaderboards"
+    },
+    {
+      "id": "livefeed-limit",
+      "ask": "How many recent responses does LiveFeed sentiment analysis run over?",
+      "expect": ["500"],
+      "source": "livepolls-livefeed-sentiment-analysis"
+    },
+    {
+      "id": "global-search-shortcut",
+      "ask": "What keyboard shortcut opens Global Search in InsightsHub?",
+      "expect": ["K"],
+      "source": "insightshub-global-search"
+    },
+    {
+      "id": "hmac-key-length",
+      "ask": "How many characters long is the HMAC-SHA1 key used for Communities single sign-on?",
+      "expect": ["8"],
+      "source": "communities-hmac-sh1-sso"
+    }
+  ]
+}

@@ -39,12 +39,33 @@ export interface LLMProvider {
   chat(request: ChatRequest): Promise<ChatResponse>;
 }
 
+const MAX_ATTEMPTS = 4;
+const BASE_BACKOFF_MS = 2_000;
+const MAX_BACKOFF_MS = 30_000;
+
 export class OpenAICompatibleProvider implements LLMProvider {
   constructor(private config: LLMConfig) {}
 
   async chat(request: ChatRequest): Promise<ChatResponse> {
     const stopSpinner = startSpinner();
     try {
+      const response = await this.send(request);
+      const data = await response.json();
+      return { message: fromWireMessage(data.choices[0].message) };
+    } finally {
+      stopSpinner();
+    }
+  }
+
+  // Transport-level retry. Rate limits and 5xx are facts about the network,
+  // not information the model can act on, so the harness handles them itself
+  // and the conversation never sees them. Contrast with a *tool* failure,
+  // which is fed back to the model as a structured result so it can change
+  // strategy - that lives in the agent loop (example 12), not here.
+  private async send(request: ChatRequest): Promise<Response> {
+    let lastError = "";
+
+    for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
       const response = await fetch(`${this.config.baseUrl}/chat/completions`, {
         method: "POST",
         headers: {
@@ -58,16 +79,46 @@ export class OpenAICompatibleProvider implements LLMProvider {
         }),
       });
 
-      if (!response.ok) {
-        throw new Error(`LLM request failed: ${await formatApiError(response)}`);
+      if (response.ok) return response;
+
+      lastError = await formatApiError(response);
+      if (!isRetryable(response.status) || attempt === MAX_ATTEMPTS) {
+        throw new Error(`LLM request failed: ${lastError}`);
       }
 
-      const data = await response.json();
-      return { message: fromWireMessage(data.choices[0].message) };
-    } finally {
-      stopSpinner();
+      const waitMs = retryDelayMs(response, attempt);
+      process.stderr.write(
+        `\r\x1b[K${response.status === 429 ? "rate limited" : "server error"} (${response.status}), ` +
+          `retrying in ${Math.round(waitMs / 1000)}s (attempt ${attempt + 1}/${MAX_ATTEMPTS})\n`,
+      );
+      await sleep(waitMs);
     }
+
+    throw new Error(`LLM request failed: ${lastError}`);
   }
+}
+
+// 429 is the one every attendee on a free tier will hit. 5xx and 408 are
+// transient by definition. Everything else (401, 400, 404) will fail the same
+// way on every retry, so retrying only wastes the remaining quota.
+function isRetryable(status: number): boolean {
+  return status === 429 || status === 408 || status >= 500;
+}
+
+// Providers tell you how long to wait when they feel like it; back off
+// exponentially when they don't. Jitter keeps a room full of attendees who
+// all got rate-limited at once from retrying in lockstep.
+function retryDelayMs(response: Response, attempt: number): number {
+  const header = response.headers.get("retry-after");
+  const seconds = header ? Number(header) : Number.NaN;
+  if (Number.isFinite(seconds) && seconds >= 0) return Math.min(seconds * 1000, MAX_BACKOFF_MS);
+
+  const backoff = Math.min(BASE_BACKOFF_MS * 2 ** (attempt - 1), MAX_BACKOFF_MS);
+  return backoff + Math.random() * 1000;
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
 // Shows progress while waiting on the model. No-op outside a TTY so piped

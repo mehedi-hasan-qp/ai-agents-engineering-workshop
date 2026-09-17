@@ -1,6 +1,9 @@
 packages:
   - "examples/*"
   - "packages/*"
+  # Attendee homework. Upstream never edits anything under harness/src after
+  # the initial scaffold, so weekly `git pull upstream main` stays conflict-free.
+  - "harness"
 
 allowBuilds:
   esbuild: true

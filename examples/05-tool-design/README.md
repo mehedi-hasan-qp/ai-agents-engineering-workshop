@@ -8,7 +8,7 @@ be validated, and gives the model unrestricted power over the host.
 
 The good tools (`tools.ts`) are narrow, typed, and each declared with a
 `ToolKind` (`read`/`write`/`execute`) in a `ToolRegistry` - the classification
-Example 09 (Security) builds a policy on top of.
+Example 11 (Security) builds a policy on top of.
 
 ## Run
 
