@@ -12,6 +12,10 @@ export interface Tool {
 export interface AgentState {
   iterations: number;
   toolCallsByName: Record<string, number>;
+  // Prompt tokens billed per call, as reported by the provider. Watch it grow:
+  // every call re-sends the whole history.
+  promptTokensPerCall: number[];
+  completionTokens: number;
 }
 
 const MAX_ITERATIONS = 8;
@@ -38,32 +42,52 @@ export async function runAgent(
   ];
 
   // Agent state: lives outside the context, never sent to the model.
-  const state: AgentState = { iterations: 0, toolCallsByName: {} };
+  const state: AgentState = {
+    iterations: 0,
+    toolCallsByName: {},
+    promptTokensPerCall: [],
+    completionTokens: 0,
+  };
 
   for (; state.iterations < MAX_ITERATIONS; state.iterations++) {
     const response = await provider.chat({ messages, tools: schemas });
-    const toolCall = response.message.toolCalls?.[0];
+    state.promptTokensPerCall.push(response.usage?.promptTokens ?? 0);
+    state.completionTokens += response.usage?.completionTokens ?? 0;
 
-    if (!toolCall) {
-      return { answer: response.message.content, state };
+    const toolCalls = response.message.toolCalls ?? [];
+    if (toolCalls.length === 0) {
+      return { answer: finalAnswer(response.message.content, response.finishReason), state };
     }
 
     messages.push(response.message);
-    state.toolCallsByName[toolCall.name] = (state.toolCallsByName[toolCall.name] ?? 0) + 1;
 
-    const tool = toolsByName.get(toolCall.name);
-    const rawResult = tool
-      ? await runWithTimeout(tool.run(toolCall.arguments), TOOL_TIMEOUT_MS)
-      : `Unknown tool: ${toolCall.name}`;
+    for (const toolCall of toolCalls) {
+      state.toolCallsByName[toolCall.name] = (state.toolCallsByName[toolCall.name] ?? 0) + 1;
 
-    const result = truncate(rawResult);
-    messages.push({ role: "tool", content: result, toolCallId: toolCall.id });
+      const tool = toolsByName.get(toolCall.name);
+      const rawResult = tool
+        ? await runWithTimeout(tool.run(toolCall.arguments), TOOL_TIMEOUT_MS)
+        : `Unknown tool: ${toolCall.name}`;
+
+      const result = truncate(rawResult);
+      const lost = rawResult.length - MAX_TOOL_RESULT_CHARS;
+      console.log(
+        `  ${toolCall.name}(${JSON.stringify(toolCall.arguments)}) -> ${rawResult.length} chars` +
+          (lost > 0 ? `, TRUNCATED: the model never sees the last ${lost}` : ""),
+      );
+
+      messages.push({ role: "tool", content: result, toolCallId: toolCall.id });
+    }
   }
 
   return {
     answer: `Gave up after ${MAX_ITERATIONS} iterations without a final answer.`,
     state,
   };
+}
+
+function finalAnswer(content: string, finishReason: string | undefined): string {
+  return finishReason === "length" ? `${content}\n[cut off: output token limit reached]` : content;
 }
 
 function truncate(result: string): string {
@@ -73,13 +97,16 @@ function truncate(result: string): string {
 }
 
 async function runWithTimeout(promise: Promise<string>, timeoutMs: number): Promise<string> {
-  const timeout = new Promise<string>((resolve) =>
-    setTimeout(() => resolve(`Tool timed out after ${timeoutMs}ms`), timeoutMs),
-  );
+  let timer: NodeJS.Timeout | undefined;
+  const timeout = new Promise<string>((resolve) => {
+    timer = setTimeout(() => resolve(`Tool timed out after ${timeoutMs}ms`), timeoutMs);
+  });
 
   try {
     return await Promise.race([promise, timeout]);
   } catch (error) {
     return `Tool failed: ${error instanceof Error ? error.message : String(error)}`;
+  } finally {
+    clearTimeout(timer);
   }
 }

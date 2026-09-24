@@ -21,6 +21,11 @@ continues with the summary in its place.
 - **Recent turns stay verbatim.** That is where the live work is.
 - **The middle gets summarised.** That is where the bulk and the redundancy is.
 
+"Recent" is measured in size as well as count. If one huge tool result sits
+in the recent window, keeping it verbatim would leave the context over the
+threshold and trigger compaction again every turn, so the window shrinks
+until it fits.
+
 Truncation deletes. Compaction remembers, in less space. Watch for the
 `[compacted N -> M tokens]` line in the output.
 
@@ -36,8 +41,11 @@ every single call, which is why it has to stay short.
 
 ## 3. Session persistence
 
-Every turn is written to `.session/transcript.jsonl` as it happens, not at the
-end. Resume with:
+Every message is appended to `.session/transcript.jsonl` as it happens, not
+at the end, and the file is never rewritten. Compaction is logged as its own
+entry, so the full history stays on disk for debugging while a resume starts
+from the compacted context. A tool call interrupted before its result landed
+is dropped on resume, so the model is asked again. Resume with:
 
 ```bash
 pnpm 07          # run, then interrupt it with Ctrl-C partway through
@@ -51,12 +59,13 @@ resume.
 
 When compaction drops the middle of the conversation, it can orphan a tool
 result whose tool call is now gone. Most providers reject that request
-outright. `compaction.ts` guards against it. Every harness that implements
-compaction hits this bug once.
+outright. `compaction.ts` guards against it by never cutting between a call
+and its results. Every harness that implements compaction hits this bug once.
 
 ## Run
 
 ```bash
 pnpm 07
 pnpm 07:resume
+pnpm --filter 07-context reset   # restore AGENTS.md, delete the session
 ```

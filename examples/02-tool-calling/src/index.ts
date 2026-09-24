@@ -19,23 +19,25 @@ const messages: ChatMessage[] = [
 ];
 
 const first = await provider.chat({ messages, tools: [searchCodeSchema] });
-const toolCall = first.message.toolCalls?.[0];
+const toolCalls = first.message.toolCalls ?? [];
 
-if (!toolCall) {
+if (toolCalls.length === 0) {
   console.log(first.message.content);
   process.exit(0);
 }
 
-console.log(`Model requested: ${toolCall.name}(${JSON.stringify(toolCall.arguments)})`);
+messages.push(first.message);
 
-const result = await searchCode(toolCall.arguments as { query: string });
-console.log(`Tool result:\n${result}\n`);
+// The model may request more than one call at once. Each one gets its own
+// result, paired by id - miss one and the provider rejects the next request.
+for (const toolCall of toolCalls) {
+  console.log(`Model requested: ${toolCall.name}(${JSON.stringify(toolCall.arguments)})`);
 
-messages.push(first.message, {
-  role: "tool",
-  content: result,
-  toolCallId: toolCall.id,
-});
+  const result = await searchCode(toolCall.arguments as { query: string });
+  console.log(`Tool result:\n${result}\n`);
+
+  messages.push({ role: "tool", content: result, toolCallId: toolCall.id });
+}
 
 const final = await provider.chat({ messages, tools: [searchCodeSchema] });
 console.log(final.message.content);

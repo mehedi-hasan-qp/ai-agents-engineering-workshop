@@ -72,7 +72,9 @@ export async function editFile(args: EditArgs): Promise<string> {
     );
   }
 
-  const after = before.replace(oldText, newText);
+  // A replacer function, not a string: a string replacement treats `$&`, `$'`
+  // and `$$` as patterns, and code is full of dollar signs.
+  const after = before.replace(oldText, () => newText);
   const diff = renderDiff(relativePath, oldText, newText);
 
   if (args.dry_run) return `Dry run, nothing written.\n${diff}`;
@@ -100,7 +102,8 @@ function normalize(relativePath: string): string {
 
 function resolveInFixture(relativePath: string): string {
   const resolved = path.resolve(FIXTURE_ROOT, relativePath);
-  if (!resolved.startsWith(FIXTURE_ROOT)) {
+  // Separator matters: "pokedex-api-secrets" also starts with "pokedex-api".
+  if (resolved !== FIXTURE_ROOT && !resolved.startsWith(FIXTURE_ROOT + path.sep)) {
     throw new Error(`Path escapes the fixture project: ${relativePath}`);
   }
   return resolved;

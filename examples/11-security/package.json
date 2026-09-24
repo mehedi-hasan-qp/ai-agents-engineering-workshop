@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "tsx src/index.ts",
+    "unguarded": "tsx src/index.ts --unguarded",
     "pretest:fixture": "cd src/fixture/pokedex-api && npm install",
     "test:fixture": "cd src/fixture/pokedex-api && npm test"
   },

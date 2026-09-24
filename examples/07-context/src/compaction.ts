@@ -13,7 +13,13 @@ export function estimateTokens(messages: ChatMessage[]): number {
 }
 
 export function contextSize(messages: ChatMessage[]): number {
-  return messages.reduce((total, message) => total + message.content.length, 0);
+  return messages.reduce(
+    (total, message) =>
+      total +
+      message.content.length +
+      (message.toolCalls ? JSON.stringify(message.toolCalls).length : 0),
+    0,
+  );
 }
 
 /**
@@ -35,13 +41,38 @@ export async function compact(
   const task = messages[1];
   if (!system || !task) return messages;
 
-  const middle = messages.slice(2, Math.max(2, messages.length - keepRecent));
-  const recent = messages.slice(Math.max(2, messages.length - keepRecent));
+  let start = Math.max(2, messages.length - keepRecent);
+
+  // "Recent" is a count, but the budget is size. If one huge tool result sits
+  // in the recent window, keeping it verbatim leaves the context over the
+  // threshold and compaction fires again every turn. Shrink the window until
+  // it fits in half the budget, or only the last message is left.
+  while (
+    start < messages.length - 1 &&
+    contextSize(messages.slice(start)) > COMPACT_THRESHOLD_CHARS / 2
+  ) {
+    start++;
+  }
+
+  // A tool result must always follow its tool call: cut between them and the
+  // kept result is an orphan the provider rejects. Snap the cut forward past
+  // tool results, so they are summarised together with their call.
+  while (start < messages.length && messages[start]?.role === "tool") start++;
+
+  // Nothing left after snapping means the cut was inside the latest call's
+  // results. That call is the live work: keep the whole group verbatim.
+  if (start === messages.length) {
+    start = messages.length - 1;
+    while (start > 2 && messages[start]?.role === "tool") start--;
+  }
+
+  const middle = messages.slice(2, start);
+  const recent = messages.slice(start);
   if (middle.length === 0) return messages;
 
-  const transcript = middle
-    .map((message) => `${message.role}: ${message.content.slice(0, 600)}`)
-    .join("\n");
+  // Tool calls live in `toolCalls`, not `content`. Leave them out and the
+  // summariser sees file contents with no idea which file they came from.
+  const transcript = middle.map(describe).join("\n");
 
   const summary = await provider.chat({
     messages: [
@@ -57,14 +88,19 @@ export async function compact(
     ],
   });
 
-  // A tool result must always follow its tool call. Dropping the middle can
-  // orphan one, and most providers reject the request outright if it does.
-  const safeRecent = recent[0]?.role === "tool" ? recent.slice(1) : recent;
-
   return [
     system,
     task,
     { role: "assistant", content: `[summary of earlier work]\n${summary.message.content}` },
-    ...safeRecent,
+    ...recent,
   ];
+}
+
+function describe(message: ChatMessage): string {
+  const calls = (message.toolCalls ?? [])
+    .map((call) => `${call.name}(${JSON.stringify(call.arguments)})`)
+    .join(", ");
+  const content = message.content.slice(0, 600);
+  if (!calls) return `${message.role}: ${content}`;
+  return `${message.role} called ${calls}` + (content ? `: ${content}` : "");
 }

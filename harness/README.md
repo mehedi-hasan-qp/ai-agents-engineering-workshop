@@ -27,9 +27,10 @@ pnpm golden     # score: 10 fixed questions with known answers
 `pnpm verify` reports `....` for checks you have not reached yet, so run it any
 time. `pnpm golden` needs an `ask()` function, so it starts working in session 2.
 
-Your golden score in week 1 will be about 2/10. That is the point. It is a
-baseline you beat. **Never edit `golden.json`** — a benchmark you move is not
-a benchmark.
+Your first golden score, in week 2, is the baseline you beat for the rest of
+the course. **Never edit `golden.json`** — a benchmark you move is not a
+benchmark. The model is not deterministic, so one run is one sample: compare
+weeks with `pnpm golden --runs=3`, not single runs.
 
 ## Ground rules
 
@@ -40,7 +41,8 @@ a benchmark.
   Copying it will not complete the assignment, because your tools, your
   corpus, and your `pnpm verify` checks are different. Adapt, don't paste.
 - `.env` is gitignored. Your fork of a public repo is public. `pnpm verify`
-  fails loudly if your key ever lands in git.
+  fails loudly if `.env` is ever committed. It cannot see a key you pasted
+  into another file, so don't.
 - At the top of each session, somebody demos their harness and explains their
   own code. Assume it will be you.
 
@@ -60,12 +62,18 @@ export const tools = [{ schema: searchDocsSchema, kind: "read", run: searchDocs 
 Then make one tool call execute end to end, the way `examples/02-tool-calling`
 does: model requests, you execute, you hand the result back.
 
+The model may ask for more than one tool call in a single response. Answer
+every one, each with its own `toolCallId`.
+
+Run it once with `LLM_DEBUG=1 pnpm harness` and read the request body. That
+is everything the model knows.
+
 **Done when:** `pnpm verify` passes the session 1 checks; one tool call
 executes; the answer changes depending on what search returned.
 
-**Expect to hit a 429.** You are on a free tier and an agent makes a lot of
-calls. Do not fix it. Screenshot it and bring it to session 2 — it is the
-first thing we cover.
+If you see `rate limited (429), retrying in Ns`, that is the shared provider
+recovering on its own. Do not work around it; screenshot it. Session 2 is
+about why it exists, and next week's loop makes many more calls.
 
 ## Session 2 — the loop, retries, cost
 
@@ -79,11 +87,16 @@ export async function ask(question: string): Promise<string>;
 Add `read_page` to your tools. Wire the loop: model → tool → result → model,
 until it stops asking for tools or hits the cap.
 
-Print tokens and a cost estimate per run. You cannot manage what you do not
-measure, and the number will surprise you.
+Print tokens and a cost estimate per run. Every `provider.chat()` response
+carries `usage` (`promptTokens`, `completionTokens`) - sum them, don't
+estimate from characters. You cannot manage what you do not measure, and the
+number will surprise you.
 
-**Done when:** `pnpm golden` runs and scores ~5/10; a 429 recovers visibly
-instead of crashing; every run prints its own cost.
+If `finishReason` is `"length"`, the answer was cut off. Don't return it as if
+it were complete.
+
+**Done when:** `pnpm golden` runs and gives you a baseline score; a 429
+recovers visibly instead of crashing; every run prints its own cost.
 
 ## Session 3 — the write tool
 
@@ -105,6 +118,11 @@ Four rules, all enforced in code, none merely requested in the prompt:
 3. A failed match is an error, never a silent no-op.
 4. Return a diff, not `"ok"`.
 
+One trap: `content.replace(old, new)` treats `$&` and `$$` in `new` as
+patterns. Pass a function, `content.replace(old, () => new)`.
+
+Stretch: refuse the edit if the page changed on disk since it was read.
+
 Classify every tool `read` / `write` / `execute`.
 
 **Done when:** `pnpm verify` passes the session 3 checks; `git diff
@@ -120,7 +138,12 @@ Stop truncating tool output. Let the context grow, and compact it when it
 crosses the threshold: keep the system prompt and the task verbatim, keep the
 recent turns verbatim, summarise the middle.
 
-Persist the transcript after **every** turn, then add `--resume`.
+Persist the transcript after **every** turn, then add `--resume`. Appending
+one line per message is better than rewriting the file: a crash can then
+only lose the last line. `pnpm verify` round-trips `saveSession` /
+`loadSession` through disk and puts your real session back afterwards.
+
+When you cut the middle out, never cut between a tool call and its results.
 
 Add a `MEMORY.md` your harness loads into the system prompt at startup.
 
@@ -134,6 +157,10 @@ Expose your harness's tools as an MCP server over stdio.
 Then connect a real harness to it — Claude Code, pi, Codex, whichever you use
 — and drive your QuestionPro wiki tools from it.
 
+Mark each tool with MCP annotations (`readOnlyHint: true` for search and read,
+`destructiveHint: true` for edit). The client you connect uses them to decide
+what needs approval - the same read/write/execute tag from session 3.
+
 **Done when:** a coding agent you did not write is searching the QuestionPro
 help centre through a server you did write. Screenshot it. This is the week
 that makes the other five worth it.
@@ -145,10 +172,13 @@ errors, and one JSON trace line per LLM and tool call.
 
 Then plant a poisoned page in your corpus — an instruction hidden in a help
 article telling the agent to ignore its rules — and show what your harness
-does about it.
+does about it. Run it twice, with and without your system-prompt defence,
+and make sure the question you ask actually leads the agent to that page.
+`pnpm verify` has no session 6 checks; the demo is the check.
 
-**Done when:** `pnpm verify` is all green, `pnpm golden` is your best score of
-the six weeks, and you can demo the injection being contained.
+**Done when:** `pnpm verify` is all green, `pnpm golden --runs=3` is your
+best average of the six weeks, and you can demo the injection being
+contained.
 
 ---
 

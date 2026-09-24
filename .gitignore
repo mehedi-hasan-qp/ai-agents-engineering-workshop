@@ -4,3 +4,4 @@ dist/
 *.log
 .vitest/
 script.md
+.session/

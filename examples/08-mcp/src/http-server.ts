@@ -7,6 +7,8 @@ import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/
 import { createServer } from "./mcpServer.ts";
 
 const PORT = 4400;
+const HOST = "127.0.0.1";
+const LOCAL_HOSTS = new Set([`localhost:${PORT}`, `127.0.0.1:${PORT}`]);
 
 // Stateless mode (sessionIdGenerator: undefined) means each transport is
 // single-use: the SDK asserts a stateless transport is never reused across
@@ -21,6 +23,15 @@ const httpServer = createHttpServer((req, res) => {
 });
 
 async function handleRequest(req: IncomingMessage, res: ServerResponse, body: string) {
+  // These tools run `npm test` on this machine. Two checks the MCP spec asks
+  // for: bind to localhost only (below), and reject requests whose Host or
+  // Origin is not us - otherwise any web page you visit can reach this port
+  // through DNS rebinding.
+  if (!isLocalRequest(req)) {
+    res.writeHead(403).end("Forbidden: this MCP server only accepts local requests");
+    return;
+  }
+
   let parsedBody: unknown;
   try {
     parsedBody = body ? JSON.parse(body) : undefined;
@@ -36,6 +47,21 @@ async function handleRequest(req: IncomingMessage, res: ServerResponse, body: st
   await transport.handleRequest(req, res, parsedBody);
 }
 
-httpServer.listen(PORT, () =>
-  console.log(`MCP HTTP server listening on http://localhost:${PORT}/mcp`),
+// Non-browser clients send no Origin; a browser always does.
+function isLocalRequest(req: IncomingMessage): boolean {
+  if (!LOCAL_HOSTS.has(req.headers.host ?? "")) return false;
+
+  const origin = req.headers.origin;
+  if (!origin) return true;
+  try {
+    return LOCAL_HOSTS.has(new URL(origin).host);
+  } catch {
+    return false;
+  }
+}
+
+// Without a host argument Node listens on every interface, which on shared
+// workshop wifi means everyone else in the room.
+httpServer.listen(PORT, HOST, () =>
+  console.log(`MCP HTTP server listening on http://${HOST}:${PORT}/mcp`),
 );

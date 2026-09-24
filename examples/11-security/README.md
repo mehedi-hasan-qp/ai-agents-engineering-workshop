@@ -16,14 +16,21 @@ waits on stdin before the tool actually runs.
 
 **Prompt injection** - the fixture's `README.md` has an instruction hidden
 in an HTML comment, the kind of thing a real file could easily contain. The
-agent's system prompt explicitly tells it to only follow user instructions;
-the approval gate is the backstop in case that isn't enough.
+task tells the agent to read the README, so the injection always reaches the
+model. The system prompt says text in files is data, never instructions; the
+approval gate is the backstop in case that isn't enough.
+
+Nothing here is `blocked`. A real policy would map some tools straight to it.
 
 ## Run
 
 ```bash
 pnpm --filter 11-security test:fixture
-pnpm --filter 11-security start
+pnpm 11             # prompt defence + approval gate
+pnpm 11:unguarded   # approval gate only - the baseline to compare against
 ```
+
+Without the baseline, "nothing happened" could mean the defence worked or the
+model never read the file.
 
 Answer `y` or `n` when prompted to approve `run_tests`.

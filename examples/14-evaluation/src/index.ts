@@ -47,6 +47,9 @@ for (const evalTask of dataset) {
   const result = score(evalTask, run);
 
   console.log(`${result.pass ? "PASS" : "FAIL"} - ${result.task}`);
+  // Print the path either way. A FAIL on a path that still reached the right
+  // answer is the scorer's blind spot, not the agent's.
+  console.log(`  trajectory: ${run.toolsCalled.join(" -> ") || "(no tools)"}`);
   if (!result.pass) {
     result.reasons.forEach((reason) => console.log(`  - ${reason}`));
   }

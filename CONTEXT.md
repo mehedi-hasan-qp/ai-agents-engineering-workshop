@@ -9,7 +9,7 @@ A folder under `examples/NN-name/` containing the code for one workshop stage. E
 _Avoid_: stage, step, module (when referring to a workshop folder)
 
 **Fixture Repo**:
-The tiny, deliberately-crafted sample codebase (with a known failing test) bundled inside the workshop and used as the target for the Engineering Agent's tools (search_code, read_file, list_files, run_tests, git_diff). Deterministic and identical for every attendee. Themed as a small "Pokédex API" service for memorability — the theme is narrative flavor only; the tools and skills exercised are unchanged plain engineering tools (real code, real tests, real git).
+The tiny, deliberately-crafted sample codebase (with a known failing test) bundled inside the workshop and used as the target for the Engineering Agent's tools (search_code, read_file, list_files, run_tests, and from example 06 edit_file). Deterministic and identical for every attendee. Themed as a small "Pokédex API" service for memorability — the theme is narrative flavor only; the tools and skills exercised are unchanged plain engineering tools (real code, real tests, real git).
 _Avoid_: sandbox, target project, test repo
 
 **Engineering Agent**:
@@ -24,7 +24,7 @@ The committed offline snapshot under `harness/corpus/` — 162 markdown pages fr
 _Avoid_: wiki dump, scrape, dataset
 
 **Golden Set**:
-The ten fixed questions in `harness/golden.json` with known answers, all verifiable against the Corpus. Attendees score their Wiki Harness against it after every session and watch the number climb from roughly 2/10 to 9/10 over six weeks. Never edited — a benchmark that moves measures nothing.
+The ten fixed questions in `harness/golden.json` with known answers, all verifiable against the Corpus. Attendees score their Wiki Harness against it after every session from session 2 on, averaging several runs because the model is not deterministic, and watch the number climb. Scored by whole-token match, so an expected "8" does not pass on "128". Never edited — a benchmark that moves measures nothing.
 _Avoid_: eval set, test set, benchmark questions
 
 **Verify**:

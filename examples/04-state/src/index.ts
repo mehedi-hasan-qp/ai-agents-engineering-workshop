@@ -37,3 +37,10 @@ console.log(answer);
 console.log("\n--- agent state (never sent to the model) ---");
 console.log(`iterations: ${state.iterations}`);
 console.log(`tool calls: ${JSON.stringify(state.toolCallsByName)}`);
+
+// Each call re-sends everything before it, so the total is far bigger than
+// the final context. That gap is the bill.
+const totalPrompt = state.promptTokensPerCall.reduce((sum, tokens) => sum + tokens, 0);
+console.log(`prompt tokens per call: ${state.promptTokensPerCall.join(" -> ")}`);
+console.log(`total billed: ${totalPrompt} prompt + ${state.completionTokens} completion tokens`);
+console.log(`final context was only ${state.promptTokensPerCall.at(-1) ?? 0} of those`);

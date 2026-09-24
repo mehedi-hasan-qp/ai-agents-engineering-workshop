@@ -13,7 +13,8 @@ const FIXTURE_ROOT = path.resolve(import.meta.dirname, "fixture/pokedex-api");
 // what the harness does with tool *output*, not what the tools do.
 function resolveInFixture(relativePath: string): string {
   const resolved = path.resolve(FIXTURE_ROOT, relativePath);
-  if (!resolved.startsWith(FIXTURE_ROOT)) {
+  // Separator matters: "pokedex-api-secrets" also starts with "pokedex-api".
+  if (resolved !== FIXTURE_ROOT && !resolved.startsWith(FIXTURE_ROOT + path.sep)) {
     throw new Error(`Path escapes the fixture project: ${relativePath}`);
   }
   return resolved;

@@ -24,8 +24,8 @@ export function score(task: EvalTask, run: AgentRun): EvalResult {
     reasons.push(`Never called expected tool(s): ${missingTools.join(", ")}`);
   }
 
-  if (run.iterations >= task.maxIterations) {
-    reasons.push(`Used all ${task.maxIterations} iterations without a confident final answer`);
+  if (!run.finished) {
+    reasons.push(`No final answer within ${task.maxIterations} iterations`);
   }
 
   return { task: task.task, pass: reasons.length === 0, reasons };

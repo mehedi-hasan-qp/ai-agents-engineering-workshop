@@ -1,5 +1,10 @@
 # PRD: AI Agents Engineering Workshop
 
+> **Historical.** This is the original twelve-example PRD. The workshop has since
+> been restructured into six sessions and fourteen examples, so the section
+> numbering and example numbers below are out of date. The current source of
+> truth is `README.md`, `CONTEXT.md` and `harness/README.md`.
+
 ## 1. Overview
 
 Build a hands-on intermediate-level workshop for software engineers covering:

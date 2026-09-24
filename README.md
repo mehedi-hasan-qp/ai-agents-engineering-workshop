@@ -57,6 +57,13 @@ Studio. `.env` is gitignored, and a fork of a public repo is public.
 pnpm 01          # shorthand for: pnpm --filter 01-basic-llm start
 ```
 
+See exactly what goes over the wire - every request re-sends the whole
+history, because the API keeps nothing between calls:
+
+```bash
+LLM_DEBUG=1 pnpm 02
+```
+
 The fixture ships with a failing test. Confirm it before running the agent:
 
 ```bash
@@ -78,12 +85,15 @@ pnpm 10          # multi-agent: supervisor
 pnpm 10:sequential
 pnpm 10:parallel
 pnpm 10:critic
+pnpm 11          # prompt-injection defence + approval gate
+pnpm 11:unguarded  # approval gate only, the baseline
 ```
 
 Examples 06 and 07 write to their fixture. Undo with:
 
 ```bash
 pnpm --filter 06-write-tool reset
+pnpm --filter 07-context reset   # also deletes the saved session
 ```
 
 ## Homework
@@ -91,7 +101,8 @@ pnpm --filter 06-write-tool reset
 ```bash
 pnpm harness     # run your own harness
 pnpm verify      # structural checks, offline and free
-pnpm golden      # score against 10 fixed questions
+pnpm golden      # score against 10 fixed questions (from session 2)
+pnpm golden --runs=3  # the model is not deterministic: average 3 runs
 ```
 
 Assignments and success criteria: [`harness/README.md`](harness/README.md)
@@ -103,15 +114,15 @@ Assignments and success criteria: [`harness/README.md`](harness/README.md)
 | 01  | `basic-llm`     | `User -> LLM -> Response`; the provider interface; the system prompt | 1       |
 | 02  | `tool-calling`  | The model requests, the application executes                         | 1       |
 | 03  | `agent-loop`    | Observe -> decide -> act -> repeat, with `MAX_ITERATIONS`            | 2       |
-| 04  | `state`         | Conversation history vs. agent state; tool-output truncation         | 2       |
+| 04  | `state`         | History vs. agent state; truncation; tokens per call from `usage`    | 2       |
 | 05  | `tool-design`   | Narrow typed tools vs. `execute_anything`; a `ToolRegistry`          | 3       |
 | 06  | `write-tool`    | `edit_file` vs. `write_file`: read-before-write, exact match, diffs  | 3       |
 | 07  | `context`       | Compaction vs. truncation; `AGENTS.md` memory; session resume        | 4       |
 | 08  | `mcp`           | Consuming a real external server; then writing your own              | 5       |
-| 09  | `sub-agent`     | `spawnAgent` — nested loop, isolated context                         | 5       |
+| 09  | `sub-agent`     | A `delegate` tool: nested loop, isolated context (Claude's Task)     | 5       |
 | 10  | `multi-agent`   | Supervisor, sequential, parallel, critic loop                        | 5       |
 | 11  | `security`      | Tool classification, approval gate, prompt injection                 | 6       |
-| 12  | `reliability`   | Timeouts, retries, structured tool errors                            | 6       |
+| 12  | `reliability`   | Structured tool errors; the model decides to retry or reroute        | 6       |
 | 13  | `observability` | Structured JSON tracing of every LLM and tool call                   | 6       |
 | 14  | `evaluation`    | Rule-based scoring of an agent's tool-call trajectory                | 6       |
 

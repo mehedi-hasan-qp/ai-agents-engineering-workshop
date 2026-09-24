@@ -102,7 +102,8 @@ export async function pageExists(slug: string): Promise<boolean> {
 // other, and "../../.env" is a perfectly valid string.
 function pagePath(slug: string): string {
   const resolved = path.resolve(PAGES_DIR, `${slug}.md`);
-  if (!resolved.startsWith(PAGES_DIR)) {
+  // Separator matters: "pages-private/x" also starts with "pages".
+  if (!resolved.startsWith(PAGES_DIR + path.sep)) {
     throw new Error(`Slug escapes the corpus: ${slug}`);
   }
   return resolved;

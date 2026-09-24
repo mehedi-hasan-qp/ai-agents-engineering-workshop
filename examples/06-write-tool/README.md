@@ -16,8 +16,11 @@ pnpm --filter 06-write-tool reset
 ```
 
 `write_file` is what everyone builds first. The model regenerates the entire
-file from memory. Watch what it silently drops: comments, unrelated functions,
-formatting. It cannot be reviewed, because "ok" is the only thing it reports.
+file from what it has seen. `read_file` truncates at 4,000 characters and
+`pokedex.ts` is about 5,800, so the model never saw the end of the file - and
+`write_file` saves only what it reproduced. The tests don't cover the lost
+functions, so they can pass anyway. It cannot be reviewed, because "ok" is
+the only thing it reports.
 
 ```bash
 pnpm 06           # edit_file(path, old_text, new_text)
@@ -39,6 +42,13 @@ pnpm --filter 06-write-tool reset
 Each failure returns a _different_ message. A model only recovers from a
 failure it can tell apart — `edit failed` makes it retry the identical call
 until the iteration budget runs out.
+
+`old_text` is replaced with a replacer function, not a replacement string:
+`String.replace` treats `$&` and `$$` in a string as patterns, and code is
+full of dollar signs.
+
+Real harnesses add a fifth rule: refuse the edit if the file changed on disk
+since it was read. Not implemented here; it is the natural next step.
 
 ## Where enforcement lives
 

@@ -28,36 +28,63 @@ if (!ask) {
   process.exit(0);
 }
 
-let passed = 0;
+// The model is not deterministic, so one run is one sample. `pnpm golden
+// --runs=3` asks every question three times; compare averages, not single runs.
+const runs = Math.max(
+  1,
+  Number(process.argv.find((arg) => arg.startsWith("--runs="))?.slice(7)) || 1,
+);
+const scores: number[] = [];
 
-for (const question of golden.questions) {
-  const started = Date.now();
-  let answer = "";
+for (let run = 1; run <= runs; run++) {
+  if (runs > 1) console.log(`\n--- run ${run}/${runs} ---`);
+  let passed = 0;
 
-  try {
-    answer = await ask(question.ask);
-  } catch (error) {
-    answer = `ERROR: ${error instanceof Error ? error.message : String(error)}`;
+  for (const question of golden.questions) {
+    const started = Date.now();
+    let answer = "";
+
+    try {
+      answer = await ask(question.ask);
+    } catch (error) {
+      answer = `ERROR: ${error instanceof Error ? error.message : String(error)}`;
+    }
+
+    // Whole-token scoring, deliberately crude. It rewards a correct fact in
+    // the answer and ignores wording. Example 14 shows why scoring the
+    // trajectory matters at least as much as scoring the final string.
+    const hit = question.expect.every((needle) => containsToken(answer, needle));
+    if (hit) passed++;
+
+    console.log(
+      `${hit ? "PASS" : "FAIL"}  ${question.id.padEnd(26)} ${Date.now() - started}ms` +
+        (hit
+          ? ""
+          : `\n      expected all of: ${question.expect.join(", ")}` +
+            `\n      got: ${answer.replace(/\s+/g, " ").slice(0, 160)}`),
+    );
   }
 
-  // Substring scoring, deliberately crude. It rewards a correct fact in the
-  // answer and ignores wording. Example 14 shows why scoring the trajectory
-  // matters at least as much as scoring the final string.
-  const hit = question.expect.every((needle) =>
-    answer.toLowerCase().includes(needle.toLowerCase()),
-  );
-  if (hit) passed++;
+  scores.push(passed);
+  console.log(`\nscore: ${passed}/${golden.questions.length}`);
+}
 
+if (runs > 1) {
+  const mean = scores.reduce((sum, score) => sum + score, 0) / runs;
   console.log(
-    `${hit ? "PASS" : "FAIL"}  ${question.id.padEnd(26)} ${Date.now() - started}ms` +
-      (hit
-        ? ""
-        : `\n      expected all of: ${question.expect.join(", ")}` +
-          `\n      got: ${answer.replace(/\s+/g, " ").slice(0, 160)}`),
+    `\nscores: ${scores.join(", ")}  mean: ${mean.toFixed(1)}/${golden.questions.length}`,
   );
 }
 
-console.log(`\nscore: ${passed}/${golden.questions.length}`);
+// A plain substring check scores wrong answers as right: "K" is inside "OK"
+// and "know", "8" is inside "128", "10" is inside "100". Match whole tokens
+// instead. A number only needs to not touch other digits, so "20 MB" and
+// "20MB" both count; a word must not touch letters or digits.
+function containsToken(answer: string, needle: string): boolean {
+  const escaped = needle.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const edge = /^\d+$/.test(needle) ? "\\d" : "[\\p{L}\\p{N}]";
+  return new RegExp(`(?<!${edge})${escaped}(?!${edge})`, "iu").test(answer);
+}
 
 async function loadGolden(): Promise<{ questions: GoldenQuestion[] }> {
   const raw = await readFile(goldenFile, "utf-8");

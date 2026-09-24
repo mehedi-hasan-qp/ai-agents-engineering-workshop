@@ -7,7 +7,7 @@ that.
 
 ## Client-first: talking to a server you didn't write (`index-external.ts`)
 
-Connects to Anthropic's official, unmodified `@modelcontextprotocol/server-filesystem`
+Connects to the official, unmodified MCP reference server `@modelcontextprotocol/server-filesystem`
 (installed on the fly via `npx`, no code of ours involved) pointed at the
 Pokédex fixture. `mcpClient.ts`'s `discoverTools()` and `agent.ts`'s
 `runAgent()` are the exact same functions used everywhere else in this
@@ -17,6 +17,14 @@ external package it's never seen before.
 That server has no `run_tests` tool, only file tools, so the task is
 scoped to what it can actually do - same constraint you'd hit integrating
 any real third-party server.
+
+It also offers `write_file`, `edit_file` and `move_file`. Connecting to a
+server hands the model every tool it exposes, so the client decides what to
+pass through: `discoverTools()` keeps each tool's `readOnlyHint` annotation
+(MCP's version of the read/write/execute tag), and this task allowlists the
+read-only ones. Hints are written by the server's author - trust them as far
+as you trust the author. The same goes for tool descriptions, which go
+straight into the model's prompt.
 
 ```bash
 pnpm --filter 08-mcp start:external
@@ -33,6 +41,8 @@ called as local functions. Two transports, same server code:
   a port, client connects like it would to any remote service. Because this
   server is stateless (`sessionIdGenerator: undefined`), the SDK requires a
   fresh transport per request - it cannot be reused across requests.
+  The server binds to `127.0.0.1` and rejects requests whose `Host` or
+  `Origin` is not local, as the MCP spec asks: its tools run `npm test`.
 
 ```bash
 pnpm --filter 08-mcp test:fixture

@@ -23,6 +23,7 @@
     "10:parallel": "pnpm --filter 10-multi-agent parallel",
     "10:critic": "pnpm --filter 10-multi-agent critic",
     "11": "pnpm --filter 11-security start",
+    "11:unguarded": "pnpm --filter 11-security unguarded",
     "12": "pnpm --filter 12-reliability start",
     "13": "pnpm --filter 13-observability start",
     "14": "pnpm --filter 14-evaluation start",

@@ -11,9 +11,14 @@ what a _reasonable trajectory_ looks like instead of one exact answer:
 `score.ts` checks the trajectory, not the wording of the final answer:
 
 - were the expected tools actually called
-- did the agent finish before burning its entire iteration budget
+- did the agent reach a final answer within its iteration budget
 
 No second LLM call, no judgment calls - deterministic and reproducible.
+
+Every task prints its trajectory, pass or fail. That shows the blind spot:
+an agent that reads the file directly instead of calling `search_code` can
+find the right answer and still FAIL. Rules measure process, not correctness;
+`harness/golden.json` is the other half.
 
 ## Run
 

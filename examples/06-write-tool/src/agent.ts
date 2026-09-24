@@ -28,22 +28,34 @@ export async function runAgent(
 
   for (; state.iterations < MAX_ITERATIONS; state.iterations++) {
     const response = await provider.chat({ messages, tools: registry.schemas() });
-    const toolCall = response.message.toolCalls?.[0];
+    const toolCalls = response.message.toolCalls ?? [];
 
-    if (!toolCall) return { answer: response.message.content, state };
+    if (toolCalls.length === 0) {
+      const cutOff = response.finishReason === "length" ? "\n[cut off: output token limit]" : "";
+      return { answer: response.message.content + cutOff, state };
+    }
 
     messages.push(response.message);
-    state.toolCallsByName[toolCall.name] = (state.toolCallsByName[toolCall.name] ?? 0) + 1;
 
-    const tool = registry.get(toolCall.name);
-    const result = tool
-      ? await runWithTimeout(tool.run(toolCall.arguments), TOOL_TIMEOUT_MS)
-      : `Unknown tool: ${toolCall.name}`;
+    for (const toolCall of toolCalls) {
+      state.toolCallsByName[toolCall.name] = (state.toolCallsByName[toolCall.name] ?? 0) + 1;
 
-    recordFileAccess(state, toolCall.name, toolCall.arguments, result);
-    console.log(`  ${toolCall.name}(${summarizeArgs(toolCall.arguments)})`);
+      const tool = registry.get(toolCall.name);
+      const result = tool
+        ? await runWithTimeout(tool.run(toolCall.arguments), TOOL_TIMEOUT_MS)
+        : `Unknown tool: ${toolCall.name}`;
 
-    messages.push({ role: "tool", content: truncate(result), toolCallId: toolCall.id });
+      recordFileAccess(state, toolCall.name, toolCall.arguments, result);
+      const seen = truncate(result);
+      console.log(
+        `  ${toolCall.name}(${summarizeArgs(toolCall.arguments)})` +
+          (seen.length < result.length
+            ? `  [model saw ${MAX_TOOL_RESULT_CHARS} of ${result.length} chars]`
+            : ""),
+      );
+
+      messages.push({ role: "tool", content: seen, toolCallId: toolCall.id });
+    }
   }
 
   return { answer: `Gave up after ${MAX_ITERATIONS} iterations.`, state };
@@ -61,10 +73,13 @@ function recordFileAccess(
   const target = typeof args.path === "string" ? args.path : undefined;
   if (!target) return;
 
-  if (name === "read_file") markRead(target);
-  if ((name === "edit_file" || name === "write_file") && !result.startsWith("Refused")) {
-    if (!state.filesEdited.includes(target)) state.filesEdited.push(target);
-  }
+  // A failed read is not a read: "Tool failed: ENOENT" taught the model nothing.
+  if (name === "read_file" && !result.startsWith("Tool failed")) markRead(target);
+
+  const wrote =
+    (name === "edit_file" && result.startsWith("Edited")) ||
+    (name === "write_file" && result === "ok");
+  if (wrote && !state.filesEdited.includes(target)) state.filesEdited.push(target);
 }
 
 function summarizeArgs(args: Record<string, unknown>): string {
@@ -80,14 +95,17 @@ function truncate(result: string): string {
 }
 
 async function runWithTimeout(promise: Promise<string>, timeoutMs: number): Promise<string> {
-  const timeout = new Promise<string>((resolve) =>
-    setTimeout(() => resolve(`Tool timed out after ${timeoutMs}ms`), timeoutMs),
-  );
+  let timer: NodeJS.Timeout | undefined;
+  const timeout = new Promise<string>((resolve) => {
+    timer = setTimeout(() => resolve(`Tool timed out after ${timeoutMs}ms`), timeoutMs);
+  });
 
   try {
     return await Promise.race([promise, timeout]);
   } catch (error) {
     return `Tool failed: ${error instanceof Error ? error.message : String(error)}`;
+  } finally {
+    clearTimeout(timer);
   }
 }
 

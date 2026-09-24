@@ -29,8 +29,19 @@ export interface ChatRequest {
   tools?: ToolSchema[];
 }
 
+export interface Usage {
+  promptTokens: number;
+  completionTokens: number;
+}
+
 export interface ChatResponse {
   message: ChatMessage;
+  // "stop" = final answer, "tool_calls" = run the tools, "length" = the
+  // answer was cut off by the output token limit and is NOT complete.
+  finishReason?: string;
+  // What the provider actually billed for this call. The only honest source
+  // of token counts; anything computed from characters is an estimate.
+  usage?: Usage;
 }
 
 // Any provider that speaks the OpenAI /chat/completions wire format
@@ -42,6 +53,8 @@ export interface LLMProvider {
 const MAX_ATTEMPTS = 4;
 const BASE_BACKOFF_MS = 2_000;
 const MAX_BACKOFF_MS = 30_000;
+// A model call that never answers must not hang the agent forever.
+const REQUEST_TIMEOUT_MS = 60_000;
 
 export class OpenAICompatibleProvider implements LLMProvider {
   constructor(private config: LLMConfig) {}
@@ -51,7 +64,16 @@ export class OpenAICompatibleProvider implements LLMProvider {
     try {
       const response = await this.send(request);
       const data = await response.json();
-      return { message: fromWireMessage(data.choices[0].message) };
+      debugWire("response", data);
+      const choice = data.choices[0];
+      return {
+        message: fromWireMessage(choice.message),
+        finishReason: choice.finish_reason,
+        usage: data.usage && {
+          promptTokens: data.usage.prompt_tokens ?? 0,
+          completionTokens: data.usage.completion_tokens ?? 0,
+        },
+      };
     } finally {
       stopSpinner();
     }
@@ -64,20 +86,35 @@ export class OpenAICompatibleProvider implements LLMProvider {
   // strategy - that lives in the agent loop (example 12), not here.
   private async send(request: ChatRequest): Promise<Response> {
     let lastError = "";
+    const body = {
+      model: this.config.model,
+      messages: toWireMessages(request.messages),
+      tools: request.tools?.map(toWireTool),
+    };
+    debugWire("request", body);
 
     for (let attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
-      const response = await fetch(`${this.config.baseUrl}/chat/completions`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${this.config.apiKey}`,
-        },
-        body: JSON.stringify({
-          model: this.config.model,
-          messages: toWireMessages(request.messages),
-          tools: request.tools?.map(toWireTool),
-        }),
-      });
+      let response: Response;
+      try {
+        response = await fetch(`${this.config.baseUrl}/chat/completions`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${this.config.apiKey}`,
+          },
+          body: JSON.stringify(body),
+          signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+        });
+      } catch (error) {
+        // Dropped connection, DNS failure, or our own timeout: transient, and
+        // just as meaningless to the model as a 429.
+        lastError = error instanceof Error ? error.message : String(error);
+        if (attempt === MAX_ATTEMPTS) break;
+        const waitMs = backoffMs(attempt);
+        logRetry(`network error (${lastError})`, waitMs, attempt);
+        await sleep(waitMs);
+        continue;
+      }
 
       if (response.ok) return response;
 
@@ -87,9 +124,10 @@ export class OpenAICompatibleProvider implements LLMProvider {
       }
 
       const waitMs = retryDelayMs(response, attempt);
-      process.stderr.write(
-        `\r\x1b[K${response.status === 429 ? "rate limited" : "server error"} (${response.status}), ` +
-          `retrying in ${Math.round(waitMs / 1000)}s (attempt ${attempt + 1}/${MAX_ATTEMPTS})\n`,
+      logRetry(
+        `${response.status === 429 ? "rate limited" : "server error"} (${response.status})`,
+        waitMs,
+        attempt,
       );
       await sleep(waitMs);
     }
@@ -111,10 +149,31 @@ function isRetryable(status: number): boolean {
 function retryDelayMs(response: Response, attempt: number): number {
   const header = response.headers.get("retry-after");
   const seconds = header ? Number(header) : Number.NaN;
-  if (Number.isFinite(seconds) && seconds >= 0) return Math.min(seconds * 1000, MAX_BACKOFF_MS);
+  if (Number.isFinite(seconds) && seconds >= 0) {
+    return Math.min(seconds * 1000, MAX_BACKOFF_MS) + Math.random() * 1000;
+  }
+  return backoffMs(attempt);
+}
 
+function backoffMs(attempt: number): number {
   const backoff = Math.min(BASE_BACKOFF_MS * 2 ** (attempt - 1), MAX_BACKOFF_MS);
   return backoff + Math.random() * 1000;
+}
+
+// A silent retry looks identical to a hang, so every retry says so.
+function logRetry(reason: string, waitMs: number, attempt: number): void {
+  process.stderr.write(
+    `\r\x1b[K${reason}, retrying in ${Math.round(waitMs / 1000)}s ` +
+      `(attempt ${attempt + 1}/${MAX_ATTEMPTS})\n`,
+  );
+}
+
+// LLM_DEBUG=1 prints every request and response body to stderr. Watch the
+// request grow: the whole history is re-sent on every call, because the API
+// keeps nothing between calls. The API key is a header, so it never appears.
+function debugWire(label: string, body: unknown): void {
+  if (!process.env.LLM_DEBUG) return;
+  process.stderr.write(`\r\x1b[K--- ${label} ---\n${JSON.stringify(body, null, 2)}\n`);
 }
 
 function sleep(ms: number): Promise<void> {

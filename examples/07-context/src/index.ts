@@ -3,7 +3,7 @@ import { type ChatMessage, OpenAICompatibleProvider } from "llm-provider/provide
 import { runAgent } from "./agent.ts";
 import { loadMemory, remember, rememberSchema } from "./memory.ts";
 import { ToolRegistry } from "./registry.ts";
-import { loadSession, sessionPath } from "./session.ts";
+import { loadSession, sessionPath, startSession } from "./session.ts";
 import {
   listFiles,
   listFilesSchema,
@@ -53,6 +53,17 @@ if (resuming) {
       : `No saved session at ${sessionPath}, starting fresh.\n`,
   );
 }
+
+// A transcript that ends in a final answer is a finished session, not an
+// interrupted one. Re-sending it would just ask the model to answer twice.
+const last = restored?.at(-1);
+if (last?.role === "assistant" && !last.toolCalls?.length) {
+  console.log(`That session already finished. Its answer was:\n\n${last.content}`);
+  console.log("\nRun `pnpm 07` for a fresh one, and Ctrl-C it partway to test resume.");
+  process.exit(0);
+}
+
+if (!restored) await startSession(fresh);
 
 const { answer, state } = await runAgent(provider, registry, restored ?? fresh);
 

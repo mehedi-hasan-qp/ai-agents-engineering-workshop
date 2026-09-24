@@ -23,21 +23,34 @@ export async function runSecureAgent(
 
   for (let iteration = 0; iteration < MAX_ITERATIONS; iteration++) {
     const response = await provider.chat({ messages, tools: schemas });
-    const toolCall = response.message.toolCalls?.[0];
+    const toolCalls = response.message.toolCalls ?? [];
 
-    if (!toolCall) {
+    if (toolCalls.length === 0) {
       return response.message.content;
     }
 
     messages.push(response.message);
 
-    const tool = toolsByName.get(toolCall.name);
-    const result = tool
-      ? await runWithPolicy(tool, toolCall.arguments)
-      : `Unknown tool: ${toolCall.name}`;
+    for (const toolCall of toolCalls) {
+      console.log(`  ${toolCall.name}(${JSON.stringify(toolCall.arguments)})`);
+      const tool = toolsByName.get(toolCall.name);
+      const result = tool
+        ? await runGuarded(tool, toolCall.arguments)
+        : `Unknown tool: ${toolCall.name}`;
 
-    messages.push({ role: "tool", content: result, toolCallId: toolCall.id });
+      messages.push({ role: "tool", content: result, toolCallId: toolCall.id });
+    }
   }
 
   return `Gave up after ${MAX_ITERATIONS} iterations without a final answer.`;
+}
+
+// A tool that throws (a missing file, a path outside the fixture) must come
+// back to the model as a result, not crash the run mid-demo.
+async function runGuarded(tool: Tool, args: unknown): Promise<string> {
+  try {
+    return await runWithPolicy(tool, args);
+  } catch (error) {
+    return `Tool failed: ${error instanceof Error ? error.message : String(error)}`;
+  }
 }

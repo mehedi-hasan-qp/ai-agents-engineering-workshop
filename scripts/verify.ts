@@ -223,6 +223,9 @@ if (typeof save === "function" && typeof load === "function") {
     { role: "user", content: "round trip" },
   ];
 
+  // The round trip writes to YOUR session file. Put back whatever was there,
+  // or running verify would wipe the session you were about to resume.
+  const original = await load().catch(() => undefined);
   try {
     await save(sample);
     const restored = await load();
@@ -235,6 +238,8 @@ if (typeof save === "function" && typeof load === "function") {
     );
   } catch (error) {
     record(4, "sessions round-trip through disk", "fail", asMessage(error));
+  } finally {
+    if (original) await save(original).catch(() => undefined);
   }
 } else {
   record(4, "sessions round-trip through disk", "pending", "saveSession / loadSession");
