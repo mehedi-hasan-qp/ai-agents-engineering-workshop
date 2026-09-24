@@ -1,5 +1,5 @@
 import { loadConfig } from "llm-provider/config";
-import { OpenAICompatibleProvider } from "./provider.ts";
+import { OpenAICompatibleProvider } from "llm-provider/provider";
 
 // The baseline, before any agent behavior exists: a user message goes in,
 // a model response comes out. No tools, no loop, no state.

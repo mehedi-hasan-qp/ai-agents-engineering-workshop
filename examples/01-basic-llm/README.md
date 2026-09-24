@@ -2,9 +2,11 @@
 
 The baseline. `User -> LLM -> Response`. No agent behavior yet.
 
-This is the `LLMProvider` interface every later example builds on: a thin
-wrapper around any OpenAI-compatible `/chat/completions` endpoint, so the
-workshop never locks you into one vendor.
+It uses the `LLMProvider` interface every later example builds on, from the
+shared `packages/llm-provider` package: a wrapper around any
+OpenAI-compatible `/chat/completions` endpoint, so the workshop never locks
+you into one vendor. This example only uses `chat()` with messages; tools,
+retries and `LLM_DEBUG` in the same package come into play from example 02.
 
 ## System prompt vs. user message
 
